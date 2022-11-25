@@ -1,15 +1,18 @@
+require('dotenv').config()
 const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const app = express()
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+// const cors = require('cors')
+const { json } = require('body-parser')
+const dbUrl = process.env.DB_URL
+mongoose.connect(dbUrl).then(() => console.log('DB Connected'))
 
-const product = require('./product.json')
-// const { json } = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get('/', (req, res) => {
-    product.push({"name": "sahal"})
-    console.log(product)
-    res.json(product)
-})
+const userRoutes = require('./routes/userRoutes')
 
-app.listen(4000, () => {console.warn('listening')})
+app.use('/', userRoutes)
+
+app.listen(4000, () => { console.log('Listening to 4000') })
