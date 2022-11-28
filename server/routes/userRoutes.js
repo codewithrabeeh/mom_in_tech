@@ -8,30 +8,33 @@ router.post('/login', async (req, res) => {
         const { username, password } = req.body;
         const user = await User.findOne({ username })
         if (user === null) {
-            return res.send({ message: 'Username not found' })
+            return res.status(404).json({ message: 'Username not found', status: false })
         }
         if (user.password === password) {
-            return res.send({ message: 'Successfully Authenticated' })
+            return res.status(200).json({ message: 'Successfully Authenticated', status: true, username })
         }
         throw new Error('Failed to Authenticate')
     } catch (e) {
-        res.send({ status: 'error', message: e.message })
+        res.send({ message: 'Failed to Authenticate', status: false })
     }
 })
 
 router.post('/register', async (req, res) => {
     try {
+
         const { email, username, password } = req.body;
+
         const user = new User({
             email,
             username,
             password
         })
+
         await user.save()
-        res.json({ message: 'Successfully Registered' })
+        res.status(200).json({ message: 'Successfully Registered', status: true, username })
 
     } catch (e) {
-        res.json({ message: 'error', message: e.message })
+        res.status(500).json({ message: 'error', message: e.message, status: false })
     }
 })
 
