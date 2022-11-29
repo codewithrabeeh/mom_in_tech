@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import classes from './Register.module.css'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { authActions } from '../components/store/auth';
+import { authActions } from '../../store/auth';
 
 function Register() {
 
@@ -32,7 +32,7 @@ function Register() {
       const data = await response.json()
 
       if (data.status) {
-        localStorage.setItem('token', 'secrettoken')
+        localStorage.setItem('token', data.token)
         localStorage.setItem('username', data.username)
         dispatch(authActions.token(localStorage.getItem('token')))
         navigate('/')
@@ -42,7 +42,7 @@ function Register() {
       }
 
     } catch (e) {
-      console.log('Error Occured')
+      alert('Error Occured While Authenticating!')
     }
 
   }

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../model/userModel')
-
+const jwt = require('jsonwebtoken')
 
 router.post('/login', async (req, res) => {
     try {
@@ -11,7 +11,10 @@ router.post('/login', async (req, res) => {
             return res.status(404).json({ message: 'Username not found', status: false })
         }
         if (user.password === password) {
-            return res.status(200).json({ message: 'Successfully Authenticated', status: true, username })
+
+            const token = jwt.sign({ _id: username }, 'secret', { expiresIn: '1h' }) 
+
+            return res.status(200).json({ message: 'Successfully Authenticated', status: true, username, token})
         }
         throw new Error('Failed to Authenticate')
     } catch (e) {
@@ -31,11 +34,19 @@ router.post('/register', async (req, res) => {
         })
 
         await user.save()
-        res.status(200).json({ message: 'Successfully Registered', status: true, username })
+        const token = jwt.sign({ _id: username }, 'secret', { expiresIn: '1h' })
+        console.log('Token from /register',token)
+        res.status(200).json({ message: 'Successfully Registered', status: true, username, token })
 
     } catch (e) {
-        res.status(500).json({ message: 'error', message: e.message, status: false })
+        res.status(500).json({ message: 'Failed to Register', status: false })
     }
+})
+
+router.post('/logout', async (req, res) => {
+    res.cookie('jwt', '', {maxAge: 0})
+
+    res.send({message: 'success'})
 })
 
 module.exports = router

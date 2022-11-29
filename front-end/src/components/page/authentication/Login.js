@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import classes from './Login.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { authActions } from '../components/store/auth'
+import { authActions } from '../../store/auth'
 import { useNavigate, Navigate } from 'react-router-dom'
 
 
@@ -29,7 +29,8 @@ function Login() {
     const data = await response.json()
 
     if (data.status) {
-      localStorage.setItem('token', 'secrettoken')
+     
+      localStorage.setItem('token', data.token)
       localStorage.setItem('username', data.username)
       dispatch(authActions.token(localStorage.getItem('token')))
       navigate('/')
