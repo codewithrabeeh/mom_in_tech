@@ -25,7 +25,6 @@ router.get('/blog/:id', isAuth, async (req, res) => {
 
 router.post('/blog', isAuth, async (req, res) => {
     try {
-
         const { title, body, username } = req.body
         const post = new Blog({
             title,
@@ -33,6 +32,7 @@ router.post('/blog', isAuth, async (req, res) => {
             username
         })
         await post.save()
+        res.send({message: 'Successfully Saved', status: true})
     } catch (e) {
         res.send({ message: 'Failed to Post Blog', status: false  })
     }
@@ -42,7 +42,7 @@ router.patch('/blog/:id', isAuth, async (req, res) => {
     try {
         const { id } = req.params
         const blog = await Blog.findByIdAndUpdate(id, { ...req.body })
-        res.send({ message: 'Successfully Updated!' })
+        res.send({ message: 'Successfully Updated!', status: true})
     } catch (e) {
         res.send({ message: 'Failed to Edit Blog', status: false  })
     }
@@ -52,7 +52,7 @@ router.delete('/blog/:id', isAuth, async (req, res) => {
     try {
         const { id } = req.params
         const post = await Blog.deleteOne({ _id: id })
-        res.send({ message: 'Successfully Deleted' })
+        res.send({ message: 'Successfully Deleted', status: true})
     } catch (e) {
         res.send({ message: 'Failed to Delete Blog', status: false  })
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import classes from './Dashboard.module.css'
@@ -34,6 +34,20 @@ function Dashboard() {
 
   }
 
+  const deleteHandler = async (id) => {
+    const response = await fetch(`http://127.0.0.1:4000/blog/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${isAuth}`
+      }
+    })
+
+    const data = await response.json()
+
+    if(data) {
+      fetchData()
+    }
+  }
   useEffect(() => {
     //Only works if Authenticated
     if (isAuth) {
@@ -47,11 +61,20 @@ function Dashboard() {
     return <Navigate to='/' />
   }
 
+  if(blogList.length){
+
+    console.log(blogList)
+  }
   return (
     <div className={classes.dashboard}>
-      <h2>This is your dashboard.</h2>
+      <h1 style={{textAlign: 'center', paddingTop: '25px'}}>This is your dashboard.</h1>
       {blogList.map((e, key) => {
-        return <h2 key={key}>{e.title}</h2> 
+        return (<div style={{padding: '40px'}}> 
+          <h1>{e.title}</h1>
+          <p>{e.body}</p>
+          <h5>By {e.username}</h5>
+          <button onClick={() => {deleteHandler(e._id)}}>Delete</button>
+        </div>)
       })}
     </div>
   )

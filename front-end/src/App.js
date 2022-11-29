@@ -10,6 +10,7 @@ import Login from './components/page/authentication/Login';
 import Register from './components/page/authentication/Register';
 
 function App() {
+  
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   // const dispatch = useDispatch()
   // dispatch(authActions.token())
