@@ -1,9 +1,11 @@
-import React, { useRef, Component } from 'react'
-import classes from './Login.module.css'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+
+import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/auth'
 import { useNavigate, Navigate } from 'react-router-dom'
-
 
 function Login() {
   const usernameRef = useRef()
@@ -16,6 +18,7 @@ function Login() {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault()
+    
     try {
       const response = await fetch('http://127.0.0.1:4000/login', {
         method: 'POST',
@@ -42,7 +45,7 @@ function Login() {
       alert(e.message)
     }
 
-    
+
   }
 
   if (isAuth) {
@@ -50,21 +53,28 @@ function Login() {
   }
 
   return (
-    <div className={classes.login}>
-      <div className={classes.box}>
-        <h2 className={classes.heading}>Login</h2>
-        <form onSubmit={onSubmitHandler} className={classes.form}>
-          <label>Email</label>
-          <input type={classes.email} ref={usernameRef} />
-          <label>Password</label>
-          <input type='password' ref={passwordRef} />
-          <button>Login</button>
-        </form>
-      </div>
 
+    <div style={{ height: '80%', width: '100%' }} className='d-flex justify-content-center align-items-center'>
+      <Card className="">
+        <Card.Body style={{ width: '400px' }}>
+
+          <Card.Title className="mb-3">Log in</Card.Title>
+          <Form onSubmit={onSubmitHandler}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Username</Form.Label>
+              <Form.Control ref={usernameRef} type="username" placeholder="Enter username" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control ref={passwordRef} type="password" placeholder="Password" />
+            </Form.Group>           
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
-    
-    /* add bootstrap form here */
   )
 }
 
