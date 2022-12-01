@@ -1,13 +1,19 @@
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import classes from './Dashboard.module.css'
 import { authActions } from '../../store/auth'
-
+import SidePanel from './SidePanel';
 
 function Dashboard() {
 
+  const navigate = useNavigate()
   const isAuth = useSelector(state => state.auth.token)
+  const blah = useSelector(state => state.auth.username)
   const dispatch = useDispatch()
   const [blogList, setBlogList] = useState([])
 
@@ -21,7 +27,6 @@ function Dashboard() {
     })
 
     const data = await response.json()
-
     setBlogList(data.post)
 
     if (data.status === 'Unauthorized') {
@@ -34,48 +39,46 @@ function Dashboard() {
 
   }
 
-  const deleteHandler = async (id) => {
-    const response = await fetch(`http://127.0.0.1:4000/blog/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${isAuth}`
-      }
-    })
-
-    const data = await response.json()
-
-    if(data) {
-      fetchData()
-    }
-  }
   useEffect(() => {
-    //Only works if Authenticated
-    if (isAuth) {
-      fetchData()
-    }
+
+    fetchData()
 
   }, [isAuth])
 
 
-  if (!isAuth) {
-    return <Navigate to='/' />
-  }
-
-  if(blogList.length){
-
-    console.log(blogList)
-  }
   return (
+
     <div className={classes.dashboard}>
-      <h1 style={{textAlign: 'center', paddingTop: '25px'}}>This is your dashboard.</h1>
-      {blogList.map((e, key) => {
-        return (<div style={{padding: '40px'}}> 
-          <h1>{e.title}</h1>
-          <p>{e.body}</p>
-          <h5>By {e.username}</h5>
-          <button onClick={() => {deleteHandler(e._id)}}>Delete</button>
-        </div>)
-      })}
+
+      <div className={classes.dashboardOne}>
+
+        <div className={`${classes.inputDiv} mt-4`}>
+          <Form.Control
+            placeholder="Create a post"
+            type="text"
+            id="createPost"
+            aria-describedby="createapost"
+            className={classes.inputMain}
+          />
+        </div>
+
+        {blogList.map((e, index) => {
+          return <div key={index} className={`${classes.blog} mt-4`}>
+            <Card onClick={() => { navigate(`/post/${e._id}`) }}>
+              <Card.Body>
+                <Card.Title><h2>{e.title}</h2></Card.Title>
+                <Card.Text>
+                  {e.body}
+                </Card.Text>
+                <Card.Subtitle><box-icon name='heart'></box-icon></Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </div>
+
+        })}
+
+      </div>
+      <SidePanel />
     </div>
   )
 }

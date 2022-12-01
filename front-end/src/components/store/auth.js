@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initiateAuthState = {
-    username: '',
+    username: localStorage.getItem('username'),
     token: localStorage.getItem('token')
 }
 

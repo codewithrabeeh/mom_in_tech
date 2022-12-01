@@ -95,3 +95,7 @@
     text-decoration: none;
     list-style: none;
 }
+
+.navbarInput {
+    width: 400px;
+}

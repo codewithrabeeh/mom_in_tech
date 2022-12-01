@@ -6,7 +6,8 @@ module.exports.isAuth = async (req, res, next) => {
         if (!token) {
             throw new Error('Not Authorized')
         }
-        getToken = token.split(' ')
+        const getToken = token.split(' ')
+        
         jwt.verify(getToken[1], 'secret')
         next()
     } catch (e) {

@@ -33,6 +33,7 @@ function Login() {
 
       if (data.status) {
         localStorage.setItem('token', data.token)
+        
         localStorage.setItem('username', data.username)
         dispatch(authActions.token(localStorage.getItem('token')))
         navigate('/')
@@ -62,7 +63,7 @@ function Login() {
           <Form onSubmit={onSubmitHandler}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
-              <Form.Control ref={usernameRef} type="username" placeholder="Enter username" />
+              <Form.Control ref={usernameRef} type="text" placeholder="Enter username" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>

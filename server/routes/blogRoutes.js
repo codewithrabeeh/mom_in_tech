@@ -4,7 +4,7 @@ const Blog = require('../model/blogModel')
 const jwt = require('jsonwebtoken')
 const { isAuth } = require('../middleware/Auth')
 
-router.get('/blog', isAuth, async (req, res) => {
+router.get('/blog', async (req, res) => {
     try {
         const post = await Blog.find()
         res.send({post, status: true})
@@ -23,7 +23,7 @@ router.get('/blog/:id', isAuth, async (req, res) => {
     }
 })
 
-router.post('/blog', isAuth, async (req, res) => {
+router.post('/blog', async (req, res) => {
     try {
         const { title, body, username } = req.body
         const post = new Blog({
@@ -54,7 +54,7 @@ router.delete('/blog/:id', isAuth, async (req, res) => {
         const post = await Blog.deleteOne({ _id: id })
         res.send({ message: 'Successfully Deleted', status: true})
     } catch (e) {
-        res.send({ message: 'Failed to Delete Blog', status: false  })
+        res.send({ message: 'Failed to Delete Blog ' + e.message, status: false  })
     }
 })
 
