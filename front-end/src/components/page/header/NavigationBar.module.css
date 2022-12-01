@@ -1,0 +1,97 @@
+/* .navbar {
+    height: 45px;
+    width: 100%;
+    background-color: rgb(233, 233, 233);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    height: 25px;
+    position: absolute;
+    left: 1%;
+}
+
+.navbar input {
+   outline: none;
+   position: absolute;
+   left: 20%;
+   height: 27px;
+   padding-left: 10px;
+}
+
+.about {
+    position: absolute;
+    left: 50%;
+}
+
+.home {
+    position: absolute;
+    left: 40%;
+}
+
+.vent {
+    position: absolute;
+    left: 60%;
+} */
+
+/* .login{
+    position: absolute;
+    left: 70%; */
+/* text-decoration: none; */
+/* cursor: pointer;
+    
+} */
+
+/* .register {
+    position: absolute;
+    left: 75%;
+    cursor: pointer;
+}
+
+.profile {
+    position: absolute;
+    left: 90%;
+    cursor: pointer;
+}
+
+.profile img {
+    position: absolute;
+}
+.outlet{
+    height: 100%;
+    width: 100%;
+} */
+
+
+.signupButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 80px;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    -webkit-box-shadow: 10px 10px 21px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 21px -15px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 21px -15px rgba(0,0,0,0.75);
+    text-decoration: none;
+    list-style: none;
+}
+
+.navbarStyle{
+    background-color: #F2F0FC;
+    color: black;
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.navbarColor{
+    color: black;
+    text-decoration: none;
+    list-style: none;
+}

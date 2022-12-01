@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, Component } from 'react'
 import classes from './Login.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/auth'
@@ -16,28 +16,33 @@ function Login() {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault()
+    try {
+      const response = await fetch('http://127.0.0.1:4000/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: usernameRef.current.value,
+          password: passwordRef.current.value
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
 
-    const response = await fetch('http://127.0.0.1:4000/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        username: usernameRef.current.value,
-        password: passwordRef.current.value
-      }),
-      headers: { "Content-Type": "application/json" }
-    })
+      const data = await response.json()
 
-    const data = await response.json()
+      if (data.status) {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('username', data.username)
+        dispatch(authActions.token(localStorage.getItem('token')))
+        navigate('/')
+        alert('Login Successfully!')
+      } else {
+        alert('Failed To Authenticate!')
+      }
 
-    if (data.status) {
-     
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('username', data.username)
-      dispatch(authActions.token(localStorage.getItem('token')))
-      navigate('/')
-      alert('Login Successfully!')
-    } else {
-      alert('Failed To Authenticate!')
+    } catch (e) {
+      alert(e.message)
     }
+
+    
   }
 
   if (isAuth) {
@@ -58,6 +63,8 @@ function Login() {
       </div>
 
     </div>
+    
+    /* add bootstrap form here */
   )
 }
 

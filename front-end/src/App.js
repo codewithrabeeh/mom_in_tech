@@ -1,11 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 // import { authActions } from './components/store/auth';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import classes from './App.module.css'
 import Home from './components/page/content/Home';
 import Dashboard from './components/page/content/Dashboard'
-import Navbar from './components/page/header/Navbar';
+import NavigationBar from './components/page/header/NavigationBar';
 import Login from './components/page/authentication/Login';
 import Register from './components/page/authentication/Register';
 
@@ -18,7 +20,9 @@ function App() {
 
   return (
     <div className={classes.app}>
-      <Navbar />
+      <NavigationBar /> 
+      
+
       <Routes>
         <Route path='/' index element={<Home />} />
         <Route path='/dashboard' element={<Dashboard />} />
