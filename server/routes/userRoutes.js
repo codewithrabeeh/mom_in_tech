@@ -17,7 +17,7 @@ router.post('/login', async (req, res) => {
 
         if (comparedPass) {
 
-            const token = jwt.sign({ _id: username }, 'secret', { expiresIn: '1h' }) 
+            const token = jwt.sign({ _id: username }, 'secret', { expiresIn: '24h' }) 
 
             return res.status(200).json({ message: 'Successfully Authenticated', status: true, username, token})
         }
@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
         
         await user.save()
        
-        const token = jwt.sign({ _id: username }, 'secret', { expiresIn: '1h' })
+        const token = jwt.sign({ _id: username }, 'secret', { expiresIn: '24h' })
         
         res.status(200).json({ message: 'Successfully Registered', status: true, username, token })
 

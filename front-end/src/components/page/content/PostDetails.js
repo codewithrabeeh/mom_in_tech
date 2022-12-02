@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import classes from './Dashboard.module.css'
+import classes from './PostDetails.module.css'
 import { authActions } from '../../store/auth'
 import SidePanel from './SidePanel';
 
@@ -29,40 +29,48 @@ function PostDetails(props) {
         navigate('/dashboard')
     }
 
+    const fetchData = async () => {        
+        const response = await fetch(`http://127.0.0.1:4000/blog/${postId}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${isAuth}`
+            }
+        })
+
+        const data = await response.json()
+        setBlog(data)
+
+        if(data.username === userName){            
+            setIsUser(true)
+        } else {
+            setIsUser(false)
+        }
+    }
+
     useEffect(() => {
-        try {
-            fetch(`http://127.0.0.1:4000/blog/${postId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${isAuth}`
-                }
-            }).then((res) => res.json()).then((data) => {                
-                setBlog(data)               
-            })
+        try {          
+            fetchData()
         } catch (e) {
             alert(e.message)
         }
-
     }, [userName, isAuth])
 
     return (
         <div className={classes.dashboard}>
-            
             <div className={classes.dashboardOne}>
                 <div className={`${classes.blog} mt-4`}>
                     <Card>
-                        <Card.Body> 
-                            <Card.Title><h2>{blog.title}</h2></Card.Title> 
+                        <Card.Body>
+                            <Card.Title><h2>{blog.title} {isUser}</h2></Card.Title>
                             <Card.Text>
-                               {blog.body}
-                            </Card.Text>                            
-                            {blog.username === userName ? <Button variant="primary" className='me-4'>Edit</Button> : null}
-                            {blog.username === userName ? <Button onClick={deleteHandler} variant="danger">Delete</Button> : null}
-                            <Card.Subtitle className='mt-2'><box-icon name='heart'></box-icon></Card.Subtitle>
+                                {blog.body}
+                            </Card.Text>
+                            {isUser ? <Button variant="primary" className='me-4'>Edit</Button> : null}
+                            {isUser ? <Button onClick={deleteHandler} variant="danger">Delete</Button> : null}
+                            <Card.Subtitle className={`mt-2`}><box-icon className={classes.hoverHeart} name='heart'></box-icon></Card.Subtitle>
                         </Card.Body>
                     </Card>
                 </div>
-
             </div>
             <SidePanel />
         </div>

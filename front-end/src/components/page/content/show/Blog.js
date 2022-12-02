@@ -1,13 +1,14 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import CreatePost from '../create/BlogPost';
 
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import classes from './Dashboard.module.css'
-import { authActions } from '../../store/auth'
-import SidePanel from './SidePanel';
+import classes from './Blog.module.css'
+import { authActions } from '../../../store/auth'
+import SidePanel from '../SidePanel';
 
 function Dashboard() {
 
@@ -54,6 +55,7 @@ function Dashboard() {
 
         <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
+            onClick={() => {navigate('/createblog')}}
             placeholder="Create a post"
             type="text"
             id="createPost"

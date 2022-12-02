@@ -16,6 +16,7 @@ const username = localStorage.getItem('username')
 function NavigationBar() {
   const dispatch = useDispatch()
   const isAuth = useSelector(state => state.auth.token)
+  const userName = useSelector(state => state.auth.username)
 
   useEffect(() => {
 
@@ -47,7 +48,10 @@ function NavigationBar() {
 
           {!isAuth && <Nav.Link ><Link className={classes.signupButton} to='/register'>Signup</Link></Nav.Link>}
 
+          {isAuth && <Nav.Link><h3>{userName}</h3></Nav.Link>}
+          
           {isAuth && <Nav.Link ><div onClick={logoutHandler} className={classes.signupButton} to='/register'>Logout</div></Nav.Link>}
+
 
         </Nav>
       </Container>

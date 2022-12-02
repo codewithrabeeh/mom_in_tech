@@ -39,6 +39,7 @@ function Register() {
         localStorage.setItem('token', data.token)
         localStorage.setItem('username', data.username)
         dispatch(authActions.token(localStorage.getItem('token')))
+        dispatch(authActions.userName(localStorage.getItem('username')))
         navigate('/')
 
       } else {

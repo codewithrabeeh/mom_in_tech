@@ -33,8 +33,8 @@ function Login() {
 
       if (data.status) {
         localStorage.setItem('token', data.token)
-        
         localStorage.setItem('username', data.username)
+        dispatch(authActions.userName(localStorage.getItem('username')))
         dispatch(authActions.token(localStorage.getItem('token')))
         navigate('/')
         alert('Login Successfully!')

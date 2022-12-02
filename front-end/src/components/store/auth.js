@@ -14,6 +14,10 @@ const authSlice = createSlice({
             const token = action.payload
             state.token = token
         },
+        userName(state, action) {
+            const username = action.payload
+            state.username = username
+        },
         clearToken(state) {
             localStorage.clear()
             state.token = ''

@@ -7,11 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import classes from './App.module.css'
 import Home from './components/page/content/Home';
-import Dashboard from './components/page/content/Dashboard'
+import Dashboard from './components/page/content/show/Blog'
 import NavigationBar from './components/page/header/NavigationBar';
 import Login from './components/page/authentication/Login';
 import Register from './components/page/authentication/Register';
 import PostDetails from './components/page/content/PostDetails';
+import BlogPost from './components/page/content/create/BlogPost';
+import Job from './components/page/content/create/Job';
+import Event from './components/page/content/create/Event';
  
 function App() {
   
@@ -30,6 +33,9 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} /> 
         <Route path='/post/:postId' element={<PostDetails />} />        
+        <Route path='/createblog' element={<BlogPost />} />        
+        <Route path='/createjob' element={<Job />} />        
+        <Route path='/create-event' element={<Event />} />        
       </Routes>
     </div>
   );

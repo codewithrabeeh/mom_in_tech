@@ -16,8 +16,14 @@ app.use(cors())
 
 const userRoutes = require('./routes/userRoutes')
 const blogRoutes = require('./routes/blogRoutes')
+const jobRoutes = require('./routes/jobRoutes')
+const eventRoutes = require('./routes/eventRoutes')
+const resourceRoutes = require('./routes/resourceRoutes')
 
 app.use('/', userRoutes)
 app.use('/', blogRoutes)
+app.use('/', jobRoutes) 
+app.use('/', eventRoutes)
+app.use('/', resourceRoutes)
 
 app.listen(4000, () => { console.log('Listening to 4000') })
