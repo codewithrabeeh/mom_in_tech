@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import parseBody from "html-react-parser";
 
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -63,7 +64,7 @@ function PostDetails() {
                         <Card.Body>
                             <Card.Title><h2>{blog.title} {isUser}</h2></Card.Title>
                             <Card.Text>
-                                {blog.body}
+                                {parseBody(blog.body)}
                             </Card.Text>
                             {isUser ? <Button onClick={() => {navigate(`/editblog/${blogId}`)}} variant="primary" className='me-4'>Edit</Button> : null}
                             {isUser ? <Button onClick={deleteHandler} variant="danger">Delete</Button> : null}
