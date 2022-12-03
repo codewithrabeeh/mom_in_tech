@@ -71,7 +71,7 @@ function Dashboard() {
               <Card.Body>
                 <Card.Title><h2>{e.title}</h2></Card.Title>
                 <Card.Text>
-                  {console.log(html.firstChild)}
+                  {/* {console.log(html.firstChild)} */}
                 </Card.Text>
                 <Card.Subtitle><box-icon name='heart'></box-icon></Card.Subtitle>
               </Card.Body>
