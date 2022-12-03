@@ -17,7 +17,6 @@ function Dashboard() {
   const isAuth = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [blogList, setBlogList] = useState([]);
-  const bodyRef = useRef();
   
   const fetchData = async () => {
     const response = await fetch("http://127.0.0.1:4000/blog", {
@@ -43,10 +42,7 @@ function Dashboard() {
   useEffect(() => {
     fetchData();
   }, [isAuth]);
-  useEffect(() => {
-   console.log( bodyRef.current)
-  }, [bodyRef]);
-  // innerHTML = "<h1>Hello</h1>";
+  
 
   return (
     <div className={classes.dashboard}>
