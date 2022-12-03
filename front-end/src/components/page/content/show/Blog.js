@@ -1,12 +1,13 @@
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
+
 
 function Dashboard() {
 
@@ -14,6 +15,7 @@ function Dashboard() {
   const isAuth = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
   const [blogList, setBlogList] = useState([])
+  const [html, setHtml] = useState()
 
   const fetchData = async () => {
 
@@ -26,6 +28,8 @@ function Dashboard() {
 
     const data = await response.json()
     setBlogList(data.post)
+    const doc = new DOMParser().parseFromString(data.post.body, "text/xml")
+    setHtml(doc)
 
     if (data.status === 'Unauthorized') {
       return dispatch(authActions.clearToken())
@@ -52,7 +56,7 @@ function Dashboard() {
 
         <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
-            onClick={() => {navigate('/createblog')}}
+            onClick={() => { navigate('/createblog') }}
             placeholder="Create a blog"
             type="text"
             id="createPost"
@@ -67,7 +71,7 @@ function Dashboard() {
               <Card.Body>
                 <Card.Title><h2>{e.title}</h2></Card.Title>
                 <Card.Text>
-                  {e.body}
+                  {console.log(html.firstChild)}
                 </Card.Text>
                 <Card.Subtitle><box-icon name='heart'></box-icon></Card.Subtitle>
               </Card.Body>
