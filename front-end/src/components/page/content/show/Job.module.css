@@ -1,7 +1,8 @@
 .dashboard{
-    height: auto; 
+    height: auto; /* siuuuu */
     width: 100%;
     display: flex;
+    /* flex-direction: row; */
 }
 
 .dashboard h1{
@@ -11,7 +12,7 @@
 
 .dashboardOne {
     width: 80%;
-    min-height: 100vh; 
+    height: auto; 
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -21,7 +22,7 @@
 
 .dashboardTwo {
     width: 20%;
-    height: 100%; 
+    height: auto; 
     background-color: white;
     display: flex;
     justify-content: flex-start;

@@ -17,9 +17,9 @@ router.get('/job/:id', async (req, res) => {
     try {
         const { id } = req.params
         const job = await Job.findById({ _id: id })
-        job ? res.send(job) : res.send({ message: 'There is no such blog' })
+        job ? res.send(job) : res.send({ message: 'There is no such job' })
     } catch (e) {
-        res.send({ message: 'Failed to Get Blog Detail', status: false })
+        res.send({ message: 'Failed to Get job Detail', status: false })
     }
 })
 
@@ -35,7 +35,7 @@ router.post('/job', async (req, res) => {
         await job.save()
         res.send({message: 'Successfully Saved', status: true})
     } catch (e) {
-        res.send({ message: 'Failed to Post Blog', status: false  })
+        res.send({ message: 'Failed to Post job', status: false  })
     }
 })
 
@@ -45,7 +45,7 @@ router.patch('/job/:id', isAuth, async (req, res) => {
         const job = await Job.findByIdAndUpdate(id, { ...req.body })
         res.send({ message: 'Successfully Updated!', status: true})
     } catch (e) {
-        res.send({ message: 'Failed to Edit Blog', status: false  })
+        res.send({ message: 'Failed to Edit job', status: false  })
     }
 })
 
@@ -55,7 +55,7 @@ router.delete('/job/:id', isAuth, async (req, res) => {
         const job = await Job.deleteOne({ _id: id })
         res.send({ message: 'Successfully Deleted', status: true})
     } catch (e) {
-        res.send({ message: 'Failed to Delete Blog ' + e.message, status: false  })
+        res.send({ message: 'Failed to Delete job ' + e.message, status: false  })
     }
 })
 

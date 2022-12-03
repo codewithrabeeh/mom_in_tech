@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import classes from './Event.module.css'
+import classes from './CreateEvent.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
 
@@ -44,14 +44,14 @@ function Event() {
             const data = await response.json()        
             
             alert('Successfully Created a Post')
-            navigate('/dashboard')
+            navigate('/event')
 
         } catch (e) {
             alert('Failed to Create Post')
         }
     }
     const cancelHandler = () => {
-        navigate('/dashboard')
+        navigate('/event')
     }
 
     return (

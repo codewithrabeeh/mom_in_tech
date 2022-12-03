@@ -83,11 +83,12 @@
 }
 
 .navbarStyle{
-    background-color: #F2F0FC;
+    background-color: #C4BAF4;
     color: black;
     font-family: 'Open Sans';
     font-weight: 400;
     font-size: 18px;
+    height: 9%; /* siuuuuu */
 }
 
 .navbarColor{

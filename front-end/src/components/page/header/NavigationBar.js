@@ -25,8 +25,7 @@ function NavigationBar() {
   const navigate = useNavigate()
   const logoutHandler = () => {
     localStorage.clear()
-
-    dispatch(authActions.clearToken())
+    dispatch(authActions.clearToken())    
     navigate('/')
   }
 

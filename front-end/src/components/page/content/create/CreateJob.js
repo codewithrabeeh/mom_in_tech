@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import classes from './BlogPost.module.css'
+import classes from './CreateBlog.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
 
@@ -39,14 +39,15 @@ function Job() {
             const data = await response.json()
     
             alert('Successfully Created a Post')
-            navigate('/dashboard')
+            navigate('/job')
     
         } catch (e) {
             alert('Failed to Create Post')
         }    
     }
+    
     const cancelHandler = () => {
-        navigate('/dashboard')
+        navigate('/job')
     }
 
     return (

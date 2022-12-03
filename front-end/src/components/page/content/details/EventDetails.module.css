@@ -1,7 +1,8 @@
 .dashboard{
-    height: auto; 
+    height: 100%;
     width: 100%;
     display: flex;
+    /* flex-direction: row; */
 }
 
 .dashboard h1{
@@ -11,7 +12,7 @@
 
 .dashboardOne {
     width: 80%;
-    min-height: 100vh; 
+    height: 90%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -21,7 +22,7 @@
 
 .dashboardTwo {
     width: 20%;
-    height: 100%; 
+    height: 90%;
     background-color: white;
     display: flex;
     justify-content: flex-start;
@@ -31,7 +32,7 @@
 
 .inputDiv{
     width: 70%;
-    height: 60px;
+    height: 7%;
     background-color: white;
     display: flex;
     justify-content: center;

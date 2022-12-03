@@ -1,5 +1,7 @@
-import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form'
+
+// import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,16 +10,16 @@ import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
 
-function Dashboard() {
+function Event() {
 
   const navigate = useNavigate()
   const isAuth = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
-  const [blogList, setBlogList] = useState([])
+  const [eventList, setEventList] = useState([])
 
   const fetchData = async () => {
 
-    const response = await fetch('http://127.0.0.1:4000/blog', {
+    const response = await fetch('http://127.0.0.1:4000/event', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${isAuth}`
@@ -25,7 +27,8 @@ function Dashboard() {
     })
 
     const data = await response.json()
-    setBlogList(data.post)
+
+    setEventList(data.event)
 
     if (data.status === 'Unauthorized') {
       return dispatch(authActions.clearToken())
@@ -48,12 +51,14 @@ function Dashboard() {
 
     <div className={classes.dashboard}>
 
+    
+
       <div className={classes.dashboardOne}>
 
         <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
-            onClick={() => {navigate('/createblog')}}
-            placeholder="Create a blog"
+            onClick={() => { navigate('/createevent') }}
+            placeholder="Create an event"
             type="text"
             id="createPost"
             aria-describedby="createapost"
@@ -61,15 +66,16 @@ function Dashboard() {
           />
         </div>
 
-        {blogList.map((e, index) => {
+        {eventList.map((e, index) => {
           return <div key={index} className={`${classes.blog} mt-4`}>
-            <Card onClick={() => { navigate(`/blog/${e._id}`) }}>
+            <Card onClick={() => { navigate(`/event/${e._id}`) }}>
               <Card.Body>
                 <Card.Title><h2>{e.title}</h2></Card.Title>
                 <Card.Text>
-                  {e.body}
+                  {e.description}
                 </Card.Text>
-                <Card.Subtitle><box-icon name='heart'></box-icon></Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Location <p className='text-dark'>{e.location}</p></Card.Subtitle>
+                <Card.Link className='text-warning text-decoration-none' href={e.link}>{e.link}</Card.Link>
               </Card.Body>
             </Card>
           </div>
@@ -82,4 +88,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default Event

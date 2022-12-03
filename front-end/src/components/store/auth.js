@@ -21,6 +21,7 @@ const authSlice = createSlice({
         clearToken(state) {
             localStorage.clear()
             state.token = ''
+            state.username = ''
         }
     }
 })
