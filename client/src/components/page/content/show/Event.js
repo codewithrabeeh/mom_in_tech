@@ -19,7 +19,7 @@ function Event() {
 
   const fetchData = async () => {
 
-    const response = await fetch('http://127.0.0.1:4000/event', {
+    const response = await fetch('http://127.0.0.1:4005/event', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${isAuth}`

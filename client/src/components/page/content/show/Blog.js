@@ -1,48 +1,38 @@
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 
+import LikeButton from "@mui/icons-material/FavoriteBorder";
+import LikeFill from "@mui/icons-material/Favorite";
 
+import parseBody from "html-react-parser";
 
-import parseBody from 'html-react-parser';
-
-import React, { useEffect, useState, useRef, } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "./Blog.module.css";
 import { authActions } from "../../../store/auth";
 import SidePanel from "../SidePanel";
+import { getAllBlog, likeBlog } from "../../../store/blog";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const userName = useSelector((state) => state.auth.username);
   const isAuth = useSelector((state) => state.auth.token);
+  const blogList = useSelector((state) => state.blog.blogList);
   const dispatch = useDispatch();
-  const [blogList, setBlogList] = useState([]);
-  
-  const fetchData = async () => {
-    const response = await fetch("http://127.0.0.1:4000/blog", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${isAuth}`,
-      },
-    });
+  // const [blogList, setBlogList] = useState([]);
+  const [like, setLike] = useState(false);
 
-    const data = await response.json();
-    setBlogList(data.post);
-    console.log(data.post);
-
-    if (data.status === "Unauthorized") {
-      return dispatch(authActions.clearToken());
-    }
-
-    if (!data.status) {
-      alert("An Error Occured While Fetching");
-    }
-  };
+  // const fetchData = 
 
   useEffect(() => {
-    fetchData();
-  }, [isAuth]);
-  
+    dispatch(getAllBlog())
+  }, []);
+
+  const handleLike = (blogID, like) => {
+    dispatch(likeBlog({ userName, blogID, like }));
+    setLike((l) => !l);
+  };
 
   return (
     <div className={classes.dashboard}>
@@ -60,21 +50,42 @@ function Dashboard() {
           />
         </div>
 
-        {blogList.map((e, index) => {
+        {blogList.map((el, index) => {
           return (
             <div key={index} className={`${classes.blog} mt-4`}>
               <Card
-                onClick={() => {
-                  navigate(`/blog/${e._id}`);
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/blog/${el._id}`);
                 }}
               >
                 <Card.Body>
                   <Card.Title>
-                    <h2>{e.title}</h2>
+                    <h2>{el.title}</h2>
                   </Card.Title>
-                  <Card.Text>{parseBody(e.body)}</Card.Text>
+                  <Card.Text>{parseBody(el.body)}</Card.Text>
                   <Card.Subtitle>
-                    <box-icon name="heart"></box-icon>
+                    {el?.like.some((el) => el === userName) ? (
+                      <>
+                        <LikeFill
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleLike(el._id, false);
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <LikeButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleLike(el._id, true);
+                          }}
+                        />
+                      </>
+                    )}
+
+                    {/* /blog/:id/like */}
                   </Card.Subtitle>
                 </Card.Body>
               </Card>

@@ -26,7 +26,7 @@ function Event() {
 
     const createPostHandler = async () => {
         try {          
-            const response = await fetch('http://127.0.0.1:4000/event', {
+            const response = await fetch('http://127.0.0.1:4005/event', {
                 method: 'POST',
                 body: JSON.stringify({
                     title: titleRef.current.value,

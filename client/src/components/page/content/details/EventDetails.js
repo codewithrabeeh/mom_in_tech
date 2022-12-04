@@ -18,7 +18,7 @@ function EventDetails() {
     const navigate = useNavigate()
 
     const deleteHandler = async () => {
-        const response = await fetch(`http://127.0.0.1:4000/job/${eventId}`, {
+        const response = await fetch(`http://127.0.0.1:4005/job/${eventId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${isAuth}`
