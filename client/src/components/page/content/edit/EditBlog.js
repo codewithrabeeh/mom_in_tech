@@ -34,7 +34,7 @@ function EditBlog() {
 
     const editPostHandler = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:4000/blog/${blogId}`, {
+            const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
                     title: titleRef.current.value,

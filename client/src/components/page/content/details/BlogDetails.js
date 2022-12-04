@@ -19,7 +19,7 @@ function PostDetails() {
   const navigate = useNavigate();
 
   const deleteHandler = async () => {
-    const response = await fetch(`http://127.0.0.1:4000/blog/${blogId}`, {
+    const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${isAuth}`,
@@ -31,7 +31,7 @@ function PostDetails() {
   };
 
   const fetchData = async () => {
-    const response = await fetch(`http://127.0.0.1:4000/blog/${blogId}`, {
+    const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${isAuth}`,
