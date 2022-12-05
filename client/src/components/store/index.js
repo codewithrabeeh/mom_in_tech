@@ -6,8 +6,7 @@ import blogReducer from './blog'
 const store = configureStore({
     reducer: {
         auth: authReducer,
-        blog: blogReducer
-
+        blog: blogReducer,
     }
 })
 

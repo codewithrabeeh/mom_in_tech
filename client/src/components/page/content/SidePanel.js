@@ -14,6 +14,7 @@ function SidePanel() {
         <span style={{cursor: 'pointer'}} onClick={()=>{navigate('/event')}} className='d-flex gap-3'><box-icon type='solid' name='calendar-event'></box-icon> <h5>Events</h5></span>
         <span style={{cursor: 'pointer'}} onClick={()=>{navigate('/job')}} className='d-flex gap-3 mt-3'><box-icon name='briefcase'></box-icon> <h5>Jobs</h5></span>        
         </div>
+        
       </div>
   )
 }

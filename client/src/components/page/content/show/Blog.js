@@ -31,7 +31,6 @@ function Dashboard() {
 
   const handleLike = (blogID, like) => {
     dispatch(likeBlog({ userName, blogID, like }));
-    setLike((l) => !l);
   };
 
   return (
