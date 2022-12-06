@@ -12,7 +12,7 @@ export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
     },
     body: JSON.stringify({ userName: data.userName, like: data.like }),
   });
-  
+
   return data
 });
 

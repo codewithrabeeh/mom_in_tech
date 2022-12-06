@@ -67,7 +67,7 @@ function PostDetails() {
       alert(e.message);
     }
   }, [userName, isAuth]);
-
+  console.log(blog);
   return (
     // <div className={classes.dashboard}>
     //   <div className={classes.dashboardOne}>
@@ -127,7 +127,7 @@ function PostDetails() {
                   </Card.Title>
                   <Card.Text>{parseBody(blog.body)}</Card.Text>
                   <Card.Subtitle>
-                    {/* {blog ?.like.some((el) => el === userName) ? (
+                    {blog ?.like?.some((el) => el === userName) ? (
                       <>
                         <LikeFill
                           onClick={(e) => {
@@ -145,7 +145,7 @@ function PostDetails() {
                           }}
                         />
                       </>
-                    )} */}
+                    )}
 
                    
                   </Card.Subtitle>
