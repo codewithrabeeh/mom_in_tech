@@ -31,7 +31,7 @@ router.post("/blog", async (req, res) => {
       title,
       body,
       username,
-      like,
+     
     });
     await post.save();
     res.send({ message: "Successfully Saved", status: true });

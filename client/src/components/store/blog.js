@@ -11,15 +11,13 @@ export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
     },
     body: JSON.stringify({ userName: data.userName, like: data.like }),
   });
-  
+
   return data
 });
 
 export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
 
 
-
-  console.log("hi");
   const response = await fetch("http://127.0.0.1:4005/blog", {
     method: "GET",
     headers: {

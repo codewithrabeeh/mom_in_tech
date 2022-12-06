@@ -18,37 +18,39 @@ import Event from './components/page/content/show/Event';
 import Blog from './components/page/content/show/Blog'
 import EventDetails from './components/page/content/details/EventDetails';
 import EditBlog from './components/page/content/edit/EditBlog';
- 
+
 function App() {
-  
+
   // const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   // const dispatch = useDispatch()
   // dispatch(authActions.token())
 
   return (
     <div className={classes.app}>
-      <NavigationBar /> 
-      
+      <NavigationBar />
+
       <Routes>
         {/* Main */}
         <Route path='/' index element={<Home />} />
         {/* Show List */}
         <Route path='/dashboard' element={<Blog />} />
-        <Route path='/job' element={<Job />} />  
+        <Route path='/job' element={<Job />} />
         <Route path='/event' element={<Event />} />
         {/* Show Details */}
-        <Route path='/blog/:blogId' element={<BlogDetails />} />   
-        <Route path='/job/:jobId' element={<JobDetails />} /> 
-        <Route path='/event/:eventId' element={<EventDetails />} />  
+        <Route path='/blog/:blogId' element={<BlogDetails />} />
+        <Route path='/job/:jobId' element={<JobDetails />} />
+        <Route path='/event/:eventId' element={<EventDetails />} />
         {/* Create */}
-        <Route path='/createblog' element={<CreateBlog />} />        
-        <Route path='/createjob' element={<CreateJob />} />        
-        <Route path='/createevent' element={<CreateEvent />} />  
+        <Route path='/createblog' element={<CreateBlog />} />
+        <Route path='/createjob' element={<CreateJob />} />
+        <Route path='/createevent' element={<CreateEvent />} />
         {/* Edit */}
         <Route path='/editblog/:blogId' element={<EditBlog />} />
         {/* Authentication */}
         <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} /> 
+        <Route path='/register' element={<Register />} />
+
+
       </Routes>
     </div>
   );
