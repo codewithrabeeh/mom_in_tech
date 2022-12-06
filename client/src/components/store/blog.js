@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authActions } from './auth'
+import {useParams} from 'react-router-dom'
 
 export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
 
@@ -16,7 +17,6 @@ export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
 });
 
 export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
-
 
   const response = await fetch("http://127.0.0.1:4005/blog", {
     method: "GET",
@@ -38,6 +38,30 @@ export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
   return data;
 
 })
+
+// export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
+
+//   const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${localStorage.getItem("token")}`,
+//     },
+//   });
+
+//   const data = await response.json();
+
+
+//   if (data.status === "Unauthorized") {
+//     authActions.clearToken()
+//   } 
+
+//   if (!data.status) {
+//     alert("An Error Occured While Fetching");
+//   }
+//   console.log(data)
+//   return data;
+
+// })
 
 const blogReducer = createSlice({
   name: "blog",

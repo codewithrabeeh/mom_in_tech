@@ -30,8 +30,7 @@ router.post("/blog", async (req, res) => {
     const post = new Blog({
       title,
       body,
-      username,
-     
+      username,      
     });
     await post.save();
     res.send({ message: "Successfully Saved", status: true });
@@ -62,9 +61,7 @@ router.delete("/blog/:id", isAuth, async (req, res) => {
 
 router.post("/blog/:id/like", isAuth, async (req, res) => {
   try {
-    console.log(req.body);
     const { id } = req.params;
-    console.log(id);
     const post = req.body.like ? await Blog.updateOne(
       { _id: mongoose.Types.ObjectId(id) },
       { $push: { like: req.body.userName } }
@@ -80,5 +77,46 @@ router.post("/blog/:id/like", isAuth, async (req, res) => {
     });
   }
 });
+
+router.get('/searchblog', async (req, res) => {
+  try {
+      const {title} = req.query
+      const agg = [
+          {
+              $search: {
+                  autocomplete: {
+                      query: title,
+                      path: 'title',
+                      fuzzy: {
+                          maxEdits: 1
+                      }
+                  }
+              }
+          },
+          {
+              $limit: 5
+          },
+          {
+              $project: {
+                  _id: 1,
+                  title: 1,                                         
+              }
+          }
+      ]
+
+     const response = await Blog.aggregate(agg)
+ 
+  let arr = response.map((obj) => {
+      let first = Object.values(obj)[0]
+      let second = Object.values(obj)[1]
+      return {id: first, name: second}
+  })
+  
+     return res.json(arr)        
+  } catch (error) {
+      console.log(error.message)
+      return res.send('')
+  } 
+})
 
 module.exports = router;

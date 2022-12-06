@@ -30,7 +30,7 @@ function JobDetails() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:4000/job/${jobId}`, {
+        const response = await fetch(`http://127.0.0.1:4005/job/${jobId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`

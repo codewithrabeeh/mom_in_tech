@@ -17,7 +17,7 @@ function CreatePost() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isAuth = useSelector(state => state.auth.token)
-    const userName = useSelector(state => state.auth.username)
+    const userName = useSelector(state => state.auth.username)    
     const titleRef = useRef()
     // const bodyRef = useRef()
     const [body, setBody] = useState('')
@@ -25,7 +25,7 @@ function CreatePost() {
     const [value, setValue] = useState()
 
     const createPostHandler = async () => {
-        try {            
+        try {                        
             const response = await fetch('http://127.0.0.1:4005/blog', {
                 method: 'POST',
                 body: JSON.stringify({

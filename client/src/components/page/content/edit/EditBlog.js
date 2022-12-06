@@ -1,9 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import LikeButton from '@mui/icons-material/FavoriteBorder';
 import LikeFill from '@mui/icons-material/Favorite';
-import parseBody from "html-react-parser";
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -12,8 +10,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import classes from './EditBlog.module.css'
-import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel'; 
+import SidePanel from '../SidePanel';
 
 function EditBlog() {
 
@@ -22,15 +19,13 @@ function EditBlog() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isAuth = useSelector(state => state.auth.token)
+    const userName = useSelector(state => state.auth.username)
     const [blog, setBlog] = useState([])
     const [body, setBody] = useState()
-    // const [isUser, setBlog] = useState([])
-    const userName = useSelector(state => state.auth.username)
-    const [like,setLike] = useState(false);
+    const [like, setLike] = useState(false);
     const titleRef = useRef()
-    const bodyRef = useRef()
 
-    
+
 
     const editPostHandler = async () => {
         try {
@@ -38,7 +33,7 @@ function EditBlog() {
                 method: 'PATCH',
                 body: JSON.stringify({
                     title: titleRef.current.value,
-                    body: bodyRef.current.value,
+                    body: body,
                     username: userName
                 }),
                 headers: {
@@ -59,8 +54,9 @@ function EditBlog() {
     const cancelHandler = () => {
         navigate('/dashboard')
     }
-    const fetchData = async () => {        
-        const response = await fetch(`http://127.0.0.1:4000/blog/${blogId}`, {
+
+    const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`
@@ -69,13 +65,14 @@ function EditBlog() {
 
         const data = await response.json()
         setBlog(data)
+        console.log(data)
         titleRef.current.value = data.title
         // bodyRef.current.value = data.body
-      
+
     }
 
     useEffect(() => {
-        try {          
+        try {
             fetchData()
         } catch (e) {
             alert(e.message)
@@ -98,25 +95,25 @@ function EditBlog() {
                         className={`${classes.inputMain} w-75 mt-3`}
                     />
                     <div className='w-75 mt-2 mb-4'>
-                    <CKEditor
-                    
-                    editor={ ClassicEditor }
-                    data={blog.body}
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        setBody(data)
-                    } }                   
-                />
+                        <CKEditor
+
+                            editor={ClassicEditor}
+                            data={blog.body}
+                            onReady={editor => {
+                                // You can store the "editor" and use when it is needed.
+                                console.log('Editor is ready to use!', editor);
+                            }}
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                setBody(data)
+                            }}
+                        />
                     </div>
                     <div className="d-flex mb-4">
                         <Button onClick={editPostHandler} variant="success" className='me-5'>Edit Post</Button>
                         <Button onClick={cancelHandler} variant="danger" className=''>Cancel</Button>
-                        {!like?<LikeButton onClick={()=>setLike((l)=>!l)}/> : <LikeFill onClick={()=>setLike((l)=>!l) }/>}       
-                                       
+                        {!like ? <LikeButton onClick={() => setLike((l) => !l)} /> : <LikeFill onClick={() => setLike((l) => !l)} />}
+
                     </div>
                 </div>
             </div>

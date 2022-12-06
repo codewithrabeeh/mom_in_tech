@@ -18,19 +18,30 @@ function EventDetails() {
     const navigate = useNavigate()
 
     const deleteHandler = async () => {
-        const response = await fetch(`http://127.0.0.1:4005/job/${eventId}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${isAuth}`
-            }
-        })
+        try {
+            const response = await fetch(`http://127.0.0.1:4005/event/${eventId}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${isAuth}`
+                }
+            })
 
-        const data = await response.json()
-        navigate('/event')
+            const data = await response.json()
+            if (!data.status) {
+                return alert('error')
+            }
+            if(data.status === 'Unauthorized') {
+                alert('Unauthorized to Delete')
+            }
+            console.log(data)
+            navigate('/event')
+        } catch (e) {
+            alert(e.message)
+        }
     }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:4000/event/${eventId}`, {
+        const response = await fetch(`http://127.0.0.1:4005/event/${eventId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`
