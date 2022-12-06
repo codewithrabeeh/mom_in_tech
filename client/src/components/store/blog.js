@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authActions } from './auth'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
 
@@ -12,7 +12,7 @@ export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
     },
     body: JSON.stringify({ userName: data.userName, like: data.like }),
   });
-
+  console.log(data);
   return data
 });
 
@@ -39,33 +39,31 @@ export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
 
 })
 
-// export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
+export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
 
-//   const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${localStorage.getItem("token")}`,
-//     },
-//   });
+  const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
-//   const data = await response.json();
+  const data = await response.json();
+  
+
+  if (data.status === "Unauthorized") {
+    authActions.clearToken()
+  }
 
 
-//   if (data.status === "Unauthorized") {
-//     authActions.clearToken()
-//   } 
+  console.log(data)
+  return data;
 
-//   if (!data.status) {
-//     alert("An Error Occured While Fetching");
-//   }
-//   console.log(data)
-//   return data;
-
-// })
+})
 
 const blogReducer = createSlice({
   name: "blog",
-  initialState: { token: localStorage.getItem("token"), blogList: [] },
+  initialState: { token: localStorage.getItem("token"), blogList: [],blog:{} },
 
   reducers: {
 
@@ -95,6 +93,10 @@ const blogReducer = createSlice({
     },
     [getAllBlog.fulfilled]: (state, action) => {
       state.blogList = action.payload.post
+    },
+    [getABlog.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      state.blog = action.payload
     }
   },
 });
