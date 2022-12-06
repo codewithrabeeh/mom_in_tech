@@ -12,7 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import classes from "./BlogDetails.module.css";
 import { authActions } from "../../../store/auth";
 import SidePanel from "../SidePanel";
-import { getAllBlog, likeBlog } from "../../../store/blog";
+import { getABlog, getAllBlog, likeBlog } from "../../../store/blog";
 
 function PostDetails() {
   const dispatch = useDispatch()
@@ -20,7 +20,7 @@ function PostDetails() {
   const { blogId } = params;
   const isAuth = useSelector((state) => state.auth.token);
   const userName = useSelector((state) => state.auth.username);
-  const blogList = useSelector((state) => state.blog.blogList);
+  const singleBlog = useSelector((state) => state.blog.blog);
   const [blog, setBlog] = useState({ body: "" });
   const [isUser, setIsUser] = useState();
 
@@ -42,31 +42,31 @@ function PostDetails() {
     navigate("/dashboard");
   };
 
-  const fetchData = async () => {
-    const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${isAuth}`,
-      },
-    });
+  // const fetchData = async () => {
+  //   const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${isAuth}`,
+  //     },
+  //   });
 
-    const data = await response.json();
-    setBlog(data);
+  //   const data = await response.json();
+  //   setBlog(data);
 
-    if (data.username === userName) {
-      setIsUser(true);
-    } else {
-      setIsUser(false);
-    }
-  };
+  //   if (data.username === userName) {
+  //     setIsUser(true);
+  //   } else {
+  //     setIsUser(false);
+  //   }
+  // };
 
   useEffect(() => {
-    try {
-      fetchData();
-    } catch (e) {
-      alert(e.message);
-    }
-  }, [userName, isAuth]);
+
+      dispatch(getABlog(blogId));
+
+  }, []);
+  console.log(singleBlog);
+  // { parseBody(singleBlog?.body) }
   console.log(blog);
   return (
     // <div className={classes.dashboard}>
@@ -118,21 +118,21 @@ function PostDetails() {
               <Card
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate(`/blog/${blog._id}`);
+              navigate(`/blog/${singleBlog?._id}`);
                 }}
               >
                 <Card.Body>
                   <Card.Title>
-                    <h2>{blog.title}</h2>
+                <h2>{singleBlog?.title}</h2>
                   </Card.Title>
-                  <Card.Text>{parseBody(blog.body)}</Card.Text>
+              <Card.Text>{parseBody(singleBlog?.body ? singleBlog?.body:"")}</Card.Text>
                   <Card.Subtitle>
-                    {blog ?.like?.some((el) => el === userName) ? (
+                {singleBlog?.like?.some((el) => el === userName) ? (
                       <>
                         <LikeFill
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleLike(blog._id, false);
+                        handleLike(singleBlog?._id, false);
                           }}
                         />
                       </>
@@ -141,7 +141,7 @@ function PostDetails() {
                         <LikeButton
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleLike(blog._id, true);
+                          handleLike(singleBlog?._id, true);
                           }}
                         />
                       </>
