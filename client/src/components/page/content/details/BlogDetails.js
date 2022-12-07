@@ -27,7 +27,7 @@ function PostDetails() {
   const navigate = useNavigate();
 
   const handleLike = (blogID, like) => {
-    dispatch(likeBlog({ userName, blogID, like }));
+    dispatch(likeBlog({ userName, blogID, like,single:true }));
   };
 
   const deleteHandler = async () => {
@@ -134,7 +134,9 @@ function PostDetails() {
                             e.stopPropagation();
                         handleLike(singleBlog?._id, false);
                           }}
-                        />
+                    />
+                    <span> likes {singleBlog.like?.length}</span>
+
                       </>
                     ) : (
                       <>
@@ -143,7 +145,8 @@ function PostDetails() {
                             e.stopPropagation();
                           handleLike(singleBlog?._id, true);
                           }}
-                        />
+                      />
+                      <span> likes { singleBlog.like?.length}</span>
                       </>
                     )}
 

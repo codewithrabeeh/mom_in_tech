@@ -14,6 +14,7 @@ import classes from "./Blog.module.css";
 import { authActions } from "../../../store/auth";
 import SidePanel from "../SidePanel";
 import { getAllBlog, likeBlog } from "../../../store/blog";
+import Skeleton from "@mui/material/Skeleton"
 
 function Dashboard() {
   const socket = io("ws://localhost:5050");
@@ -62,11 +63,12 @@ function Dashboard() {
                   navigate(`/blog/${el._id}`);
                 }}
               >
+
                 <Card.Body>
                   <Card.Title>
-                    <h2>{el.title}</h2>
+                    <h2>{el.title ? el.title : <Skeleton width="220px" animation="wave" />}</h2>
                   </Card.Title>
-                  <Card.Text>{parseBody(el.body)}</Card.Text>
+                  <Card.Text>{el.body ? parseBody(el.body) : <><Skeleton animation="wave" /> <Skeleton animation="wave" /> <Skeleton animation="wave" /></>}</Card.Text>
                   <Card.Subtitle>
                     {el?.like.some((el) => el === userName) ? (
                       <>
@@ -76,6 +78,8 @@ function Dashboard() {
                             handleLike(el._id, false);
                           }}
                         />
+                        <span> likes {el.like?.length}</span>
+
                       </>
                     ) : (
                       <>
@@ -85,6 +89,8 @@ function Dashboard() {
                             handleLike(el._id, true);
                           }}
                         />
+                        <span> likes {el.like?.length}</span>
+
                       </>
                     )}
 

@@ -49,21 +49,20 @@ export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
   });
 
   const data = await response.json();
-  
+
 
   if (data.status === "Unauthorized") {
     authActions.clearToken()
   }
 
 
-  console.log(data)
   return data;
 
 })
 
 const blogReducer = createSlice({
   name: "blog",
-  initialState: { token: localStorage.getItem("token"), blogList: [],blog:{} },
+  initialState: { token: localStorage.getItem("token"), blogList: [], blog: {} },
 
   reducers: {
 
@@ -73,29 +72,33 @@ const blogReducer = createSlice({
       // taking and parsing state data
       const blogList = JSON.parse(JSON.stringify(state.blogList));
 
-      state.blogList = blogList.map(blog => {
-        //checking which blog user liked
-        if (blog._id === action.payload.blogID) {
-          console.log(blog._id);
-          //checking user liked or unliked
-          if (action.payload.like) {
-            //pushig were user match
+      if (action.payload.single) {
+        if (action.payload.like) state.blog.like?.push(action.payload.userName)
+        else state.blog.like?.splice(state.blogList.indexOf(action.payload.userName), 1);
+      } else {
+        state.blogList = blogList.map(blog => {
+          //checking which blog user liked
+          if (blog._id === action.payload.blogID) {
+            console.log(blog._id);
+            //checking user liked or unliked
+            if (action.payload.like) {
+              //pushig were user match
 
-            blog.like.push(action.payload.userName);
-          } else {
-            //popping were user match
-            blog.like.splice(blog.like.indexOf(action.payload.userName), 1)
+              blog.like.push(action.payload.userName);
+            } else {
+              //popping were user match
+              blog.like.splice(blog.like.indexOf(action.payload.userName), 1)
+            }
           }
-        }
-        //final
-        return blog;
-      });
+          //final
+          return blog;
+        });
+      }
     },
     [getAllBlog.fulfilled]: (state, action) => {
       state.blogList = action.payload.post
     },
     [getABlog.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.blog = action.payload
     }
   },
