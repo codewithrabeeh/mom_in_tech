@@ -1,6 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 import LikeButton from "@mui/icons-material/FavoriteBorder";
 import LikeFill from "@mui/icons-material/Favorite";
@@ -14,15 +14,15 @@ import classes from "./Blog.module.css";
 import { authActions } from "../../../store/auth";
 import SidePanel from "../SidePanel";
 import { getAllBlog, likeBlog } from "../../../store/blog";
+import ChatBox from "../../../ChatBox";
 
 function Dashboard() {
-  const socket = io("ws://localhost:5050");
   const navigate = useNavigate();
   const userName = useSelector((state) => state.auth.username);
   const isAuth = useSelector((state) => state.auth.token);
   const blogList = useSelector((state) => state.blog.blogList);
   const dispatch = useDispatch();
-  const [openChat, setOpenChat] = useState(false);
+  // const [openChat, setOpenChat] = useState(false);
 
 
   useEffect(() => {
@@ -36,9 +36,9 @@ function Dashboard() {
 
   return (
     <div className={classes.dashboard}>
-      <div className={classes.chatBox} style={{ display: 'flex', height: openChat ? '55%' : "0" }}>
-
-      </div>
+      {/* <div className={classes.chatBox} style={{ display: 'flex', height: openChat ? '55%' : "0" }}>
+      </div> */}
+      {/* <ChatBox /> */}
       <div className={classes.dashboardOne}>
         <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
@@ -96,7 +96,7 @@ function Dashboard() {
           );
         })}
       </div>
-      <SidePanel chat={setOpenChat} />
+      <SidePanel /> {/* chat={setOpenChat} */}
     </div>
   );
 }

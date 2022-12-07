@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
+import ChatBox from '../../../ChatBox';
 
 function Event() {
 
@@ -51,7 +52,7 @@ function Event() {
 
     <div className={classes.dashboard}>
 
-    
+      {/* <ChatBox /> */}
 
       <div className={classes.dashboardOne}>
 

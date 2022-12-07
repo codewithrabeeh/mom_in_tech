@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initiateAuthState = {
     username: localStorage.getItem('username'),
-    token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
+    isChatOpen: false 
 }
 
 const authSlice = createSlice({
@@ -22,6 +23,9 @@ const authSlice = createSlice({
             localStorage.clear()
             state.token = ''
             state.username = ''
+        },
+        toggleChat(state) {
+            state.isChatOpen = !state.isChatOpen 
         }
     }
 })

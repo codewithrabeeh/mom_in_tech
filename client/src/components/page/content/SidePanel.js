@@ -3,14 +3,14 @@ import Button from 'react-bootstrap/Button';
 import classes from './SidePanel.module.css'
 import { useNavigate } from 'react-router-dom'
 
-function SidePanel({ chat }) {
+function SidePanel() { /* { chat } */
   const navigate = useNavigate()
-  const chatHandle = () => {
-    chat((i) => !i)
-  }
+  // const chatHandle = () => {
+  //   chat((i) => !i)
+  // }
   return (
     <div className={classes.dashboardTwo}>
-      <Button style={{ backgroundColor: '#00DD31', color: 'black', fontWeight: '600', marginTop: '10px' }} size="lg" onClick={chatHandle}>
+      <Button style={{ backgroundColor: '#00DD31', color: 'black', fontWeight: '600', marginTop: '10px' }} size="lg">
         Chat Live!
       </Button>
       <div className='mt-5'>
