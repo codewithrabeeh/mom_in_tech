@@ -80,7 +80,6 @@ router.post("/blog/:id/like", isAuth, async (req, res) => {
 
 router.get('/searchblog', async (req, res) => {
   try {
-    console.log('first')
       const {title} = req.query
       const agg = [
           {

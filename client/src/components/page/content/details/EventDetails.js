@@ -77,7 +77,8 @@ function EventDetails() {
                                 {event.description}
                             </Card.Text>
                             <Card.Subtitle className="mb-2 text-muted">Location <p className='text-dark'>{event.location}</p></Card.Subtitle>
-                            <Card.Link className='text-warning text-decoration-none' href={event.link}>{event.link}</Card.Link>
+                            {/* <Card.Link className='text-warning text-decoration-none' href={`https://${event.link}`}>{event.link}</Card.Link> */}
+                            <a href={`https://${event.link}`} target="_blank">{event.link}</a>
                             <div className='mt-3'>
                                 {isUser ? <Button onClick={deleteHandler} variant="danger">Delete</Button> : null}
                             </div>
@@ -85,7 +86,7 @@ function EventDetails() {
                     </Card>
                 </div>
             </div>
-            <SidePanel />
+            {/* <SidePanel /> */}
         </div>
     )
 }

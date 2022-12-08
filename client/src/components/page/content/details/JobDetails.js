@@ -66,7 +66,7 @@ function JobDetails() {
                                 {job.description}
                             </Card.Text>
                             <Card.Subtitle className="text-dark">Apply to</Card.Subtitle>
-                            <Card.Link className="text-decoration-none text-info" href={`mailto:${job.email}`}>{job.email}</Card.Link>
+                            <a className="text-decoration-none text-info" href={`mailto:${job.email}`} target='_blank'>{job.email}</a>
                             <br />
                             <div className='mt-4'>                                                        
                             {isUser ? <Button onClick={deleteHandler} variant="danger">Delete</Button> : null}
@@ -75,7 +75,7 @@ function JobDetails() {
                     </Card>
                 </div>
             </div>
-            <SidePanel />
+            {/* <SidePanel /> */}
         </div>
     )
 }

@@ -74,7 +74,9 @@ function Event() {
                   {e.description}
                 </Card.Text>
                 <Card.Subtitle className="mb-2 text-muted">Location <p className='text-dark'>{e.location}</p></Card.Subtitle>
-                <Card.Link className='text-warning text-decoration-none' href={e.link}>{e.link}</Card.Link>
+                {/* <Card.Link className='text-warning text-decoration-none' href={e.link}>{e.link}</Card.Link> */}
+                <a href={`https://${e.link}`} target="_blank">{e.link}</a>
+
               </Card.Body>
             </Card>
           </div>

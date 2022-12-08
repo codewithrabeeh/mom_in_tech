@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import classes from './App.module.css'
 import NavigationBar from './components/page/header/NavigationBar';
+import Footer from './components/page/header/Footer';
 import Home from './components/page/content/Home';
 import Login from './components/page/authentication/Login';
 import Register from './components/page/authentication/Register';
@@ -56,6 +57,8 @@ function App() {
 
 
       </Routes>
+    <Footer />
+
     </div>
   );
 }

@@ -34,7 +34,7 @@ function NavigationBar() {
   }, [text])
 
   useEffect(() => {
-    if (winPath === '/dashboard' || winPath.includes("/blog/") || winPath.includes("/createblog") || winPath.includes("/editblog/")) {
+    if (winPath === '/dashboard' || winPath.includes("/blog/") || winPath.includes("/createblog") || winPath.includes("/editblog/") || winPath === '/') {
       setPath('blog')
     } else if (winPath === '/job' || winPath.includes("/job/") || winPath.includes("/createjob")) {
       setPath('job')
@@ -43,6 +43,7 @@ function NavigationBar() {
     } else {
       setPath('')
     }
+    console.log(winPath)
   }, [window.location.pathname])
 
   async function fetchData(text) {
@@ -61,21 +62,21 @@ function NavigationBar() {
         <Navbar.Brand className='d-flex justify-content-center align-items-center' ><img style={{ width: '120px' }} src={usernameLogo} /></Navbar.Brand>
         <Nav>
           <Navbar.Collapse >
-            <div style={{position: 'relative', left: '-30%'}}>
+            <div style={{position: 'relative', left: '-10%'}}>
             <Link className={classes.navbarColor} to='/'>Home</Link>
             <Link className={`ms-3 ${classes.navbarColor}`} to='/dashboard'>Blog</Link>
             <Link className={`ms-3 ${classes.navbarColor}`} to='/event'>Event</Link>
             <Link className={`ms-3 ${classes.navbarColor}`} to='/job'>Job</Link>
             </div>
-            {path && <div className='ms-4' style={{ width: '400px' }}>
+             <div className='ms-4' style={{ width: '400px' }}>
               <ReactSearchAutocomplete
                 items={fetchResult}
                 maxResults='4'
                 placeholder={'Search ' + path + 's'}
                 onSearch={(str, res) => { setText(str) }}
                 onSelect={(item) => { navigate(`/${path}/${item.id}`) }}
-              />
-            </div>}
+              /> 
+            </div>
 
           </Navbar.Collapse>
         </Nav>

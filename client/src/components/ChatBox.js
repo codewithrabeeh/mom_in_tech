@@ -22,7 +22,7 @@ function ChatBox() {
     const sampleData = [{ username: 'Jhon', message: 'Hello' }, { username: 'Ram', message: 'Hey' }]
     const [messageData, setMessageData] = useState()
     const [events, setEvents] = useState([]);
-    const [limit, setLimit] = useState(10) /* if collection data lesser than limit hide load more */
+    const [limit, setLimit] = useState(30) /* if collection data lesser than limit hide load more */
     const [mentionName, setMentionName] = useState([])
 
     const onSendMessageHandler = async () => {
@@ -60,12 +60,12 @@ function ChatBox() {
 
     const onLoadMoreHandler = async () => {
         try {
-            setLimit(limit + 3)
+            setLimit(limit + 30)
             console.log(limit)
             const response = await fetch('http://127.0.0.1:4005/chatmore', {
                 method: 'POST',
                 body: JSON.stringify({
-                    limit: limit + 3
+                    limit: limit + 30
                 }),
                 headers: {
                     "Content-Type": "application/json"
@@ -135,14 +135,14 @@ function ChatBox() {
 
     return (
         <div> {/* style={{ display: 'flex', height: openChat ? '55%' : "0" }} */}
-            <div className={classes.chatbox} style={{ height: toggleChat ? '400px' : '5%' }} >
+            <div className={classes.chatbox} style={{ height: toggleChat ? '400px' : '5%', bottom: !toggleChat ? '0' : '1.2%'  }} >
                 <div className='d-flex justify-content-between align-items-center'>
-                    <h5 className='pt-2 ps-2'>Group Chat</h5>
+                    <h5 className='pt-2 ps-2'>Momintech - Chat Group</h5>
                     {toggleChat && <ArrowDropDownIcon onClick={() => { dispatch(authActions.toggleChat()) }} className={`me-1 ${classes.dropdown}`} />}
                     {!toggleChat && <ArrowDropUpIcon onClick={() => { dispatch(authActions.toggleChat()); syncGroupMessage(); }} className={`me-1 ${classes.dropdown}`} />}
                 </div>
                 <div ref={chatMessageDiv} className={classes.messagebox}>
-                    {messageData && <div className="d-flex justify-content-center w-100 mt-2 mb-2"><Button size='sm' variant="warning" onClick={onLoadMoreHandler} >Load More</Button>{' '}</div>}
+                    {messageData && <div className="d-flex justify-content-center w-100 mt-2 mb-2"><Button size='sm' variant="warning" onClick={onLoadMoreHandler}>Load More</Button>{' '}</div>}
                     {messageData ? messageData.map((e, i) => {
                         const isTheUser = userName === e.username
                         return <div key={i} className={classes.message} style={{ backgroundColor: isTheUser ? 'white' : 'skyblue', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px', fontFamily: 'Roboto', lineHeight:'20px', paddingLeft: '7px' }}>
@@ -169,10 +169,3 @@ function ChatBox() {
 }
 
 export default ChatBox
-
-/* {messageData ? messageData.map((e, i) => {
-    const isTheUser = userName === e.username
-return <div key={i} className={classes.message} style={{backgroundColor: isTheUser ? 'white' : 'skyblue', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px'}}>
-    {e.message} by {isTheUser ? 'You' : e.username} 
-    </div>
-}) : null} */

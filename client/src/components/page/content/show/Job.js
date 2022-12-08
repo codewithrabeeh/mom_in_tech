@@ -73,7 +73,9 @@ function Job() {
                                     {e.description}
                                 </Card.Text>
                                 <Card.Subtitle className="mb-2 text-muted">Apply to</Card.Subtitle>
-                                <Card.Link className="text-decoration-none text-info" href={`mailto:${e.email}`}>{e.email}</Card.Link>
+                                {/* <Card.Link className="text-decoration-none text-info" href={`mailto:${e.email}`}>{e.email}</Card.Link> */}
+                                <a className="text-decoration-none text-info" href={`mailto:${e.email}`} target='_blank'>{e.email}</a>
+
                             </Card.Body>
                         </Card>
                     </div>
@@ -81,7 +83,6 @@ function Job() {
                 })}
 
             </div>
-            {/* <SidePanel /> */}
         </div>
     )
 }

@@ -154,12 +154,28 @@ function PostDetails() {
 
                    
                   </Card.Subtitle>
+                  {isUser ? (
+                <Button
+                  onClick={() => {
+                    navigate(`/editblog/${blogId}`);
+                  }}
+                  variant="primary"
+                  className="me-4"
+                >
+                  Edit
+                </Button>
+              ) : null}
+              {isUser ? (
+                <Button onClick={deleteHandler} variant="danger">
+                  Delete
+                </Button>
+              ) : null}
                 </Card.Body>
               </Card>
             </div>
        
       </div>
-      <SidePanel />
+      {/* <SidePanel /> */}
     </div>
   );
 }

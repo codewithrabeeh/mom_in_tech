@@ -1,6 +1,5 @@
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-// import { io } from "socket.io-client";
 
 import LikeButton from "@mui/icons-material/FavoriteBorder";
 import LikeFill from "@mui/icons-material/Favorite";
@@ -22,7 +21,6 @@ function Dashboard() {
   const isAuth = useSelector((state) => state.auth.token);
   const blogList = useSelector((state) => state.blog.blogList);
   const dispatch = useDispatch();
-  // const [openChat, setOpenChat] = useState(false);
   const SkeletonOfBlog = (
 
     <div className={`${classes.blog} mt-4`}>
@@ -56,9 +54,6 @@ function Dashboard() {
 
   return (
     <div className={classes.dashboard}>
-      {/* <div className={classes.chatBox} style={{ display: 'flex', height: openChat ? '55%' : "0" }}>
-      </div> */}
-      {/* <ChatBox /> */}
       <div className={classes.dashboardOne}> 
         <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
