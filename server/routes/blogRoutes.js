@@ -10,7 +10,7 @@ router.get("/blog", async (req, res) => {
     const post = await Blog.find().sort({createdAt: -1});
     res.send({ post, status: true });
   } catch (e) {
-    res.send({ message: "Failed to Get Blog Collections", status: false });
+    res.send({ message: "Failed to Get Blogs", status: false });
   }
 });
 
@@ -24,7 +24,7 @@ router.get("/blog/:id", async (req, res) => {
   }
 });
 
-router.post("/blog", async (req, res) => {
+router.post("/blog", isAuth, async (req, res) => {
   try {
     const { title, body, username } = req.body;
     const post = new Blog({

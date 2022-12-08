@@ -20,7 +20,7 @@ function Register() {
   const onSubmitHandler = async (event) => {
     event.preventDefault()
     try {
-      const response = await fetch('http://127.0.0.1:4005/register', {
+      const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/register', {
         method: 'POST',
         body: JSON.stringify({
           username: usernameRef.current.value,

@@ -125,7 +125,7 @@ function Dashboard() {
               </Card>
             </div>
           );
-        }) : <>{SkeletonOfBlog}{SkeletonOfBlog}{SkeletonOfBlog}</>}
+        }) : <> {SkeletonOfBlog}{SkeletonOfBlog}{SkeletonOfBlog}</>}
         <div className="mb-5"></div>
       </div>
     </div>

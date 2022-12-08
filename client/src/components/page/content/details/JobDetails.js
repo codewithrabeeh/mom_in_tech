@@ -17,7 +17,7 @@ function JobDetails() {
     const navigate = useNavigate()
 
     const deleteHandler = async () => {
-        const response = await fetch(`http://127.0.0.1:4005/job/${jobId}`, {
+        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/job/${jobId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${isAuth}`
@@ -29,7 +29,7 @@ function JobDetails() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:4005/job/${jobId}`, {
+        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/job/${jobId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`

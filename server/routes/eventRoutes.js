@@ -23,7 +23,7 @@ router.get('/event/:id', async (req, res) => {
     }
 })
 
-router.post('/event', async (req, res) => {
+router.post('/event', isAuth, async (req, res) => {
     try {
         const { title, description, location, link, username } = req.body
         const event = new Event({
@@ -37,16 +37,6 @@ router.post('/event', async (req, res) => {
         res.send({ message: 'Successfully Saved', status: true })
     } catch (e) {
         res.send({ message: 'Failed to Post Event', status: false })
-    }
-})
-
-router.patch('/event/:id', isAuth, async (req, res) => {
-    try {
-        const { id } = req.params
-        const event = await Event.findByIdAndUpdate(id, { ...req.body })
-        res.send({ message: 'Successfully Updated!', status: true })
-    } catch (e) {
-        res.send({ message: 'Failed to Edit Event', status: false })
     }
 })
 

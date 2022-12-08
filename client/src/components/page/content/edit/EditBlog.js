@@ -27,7 +27,7 @@ function EditBlog() {
 
     const editPostHandler = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+            const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
                     title: titleRef.current.value,
@@ -54,7 +54,7 @@ function EditBlog() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`
@@ -63,7 +63,6 @@ function EditBlog() {
 
         const data = await response.json()
         setBlog(data)
-        console.log(data)
         titleRef.current.value = data.title
     }
 

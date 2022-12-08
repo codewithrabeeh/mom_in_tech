@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
 
-  fetch(`http://127.0.0.1:4005/blog/${data.blogID}/like`, {
+  fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${data.blogID}/like`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -12,13 +12,12 @@ export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
     },
     body: JSON.stringify({ userName: data.userName, like: data.like }),
   });
-  console.log(data);
   return data
 });
 
 export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
 
-  const response = await fetch("http://127.0.0.1:4005/blog", {
+  const response = await fetch("https://urchin-app-a4mge.ondigitalocean.app/blog", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,7 +40,7 @@ export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
 
 export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
 
-  const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+  const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -79,7 +78,6 @@ const blogReducer = createSlice({
         state.blogList = blogList.map(blog => {
           
           if (blog._id === action.payload.blogID) {
-            console.log(blog._id);
             
             if (action.payload.like) {
               

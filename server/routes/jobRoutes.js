@@ -23,7 +23,7 @@ router.get('/job/:id', async (req, res) => {
     }
 })
 
-router.post('/job', async (req, res) => {
+router.post('/job', isAuth, async (req, res) => {
     try {
         const { title, description, email, username } = req.body        
         const job = new Job({
@@ -39,15 +39,6 @@ router.post('/job', async (req, res) => {
     }
 })
 
-router.patch('/job/:id', isAuth, async (req, res) => {
-    try {
-        const { id } = req.params
-        const job = await Job.findByIdAndUpdate(id, { ...req.body })
-        res.send({ message: 'Successfully Updated!', status: true})
-    } catch (e) {
-        res.send({ message: 'Failed to Edit job', status: false  })
-    }
-})
 
 router.delete('/job/:id', isAuth, async (req, res) => {
     try {

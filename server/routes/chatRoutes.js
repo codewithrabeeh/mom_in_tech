@@ -4,7 +4,7 @@ const Chat = require('../model/chatModel')
 const jwt = require('jsonwebtoken')
 const { isAuth } = require('../middleware/Auth')
 
-router.post('/chat', async (req, res) => {
+router.post('/chat', isAuth, async (req, res) => {
     try {
         const { message, username } = req.body
         const chat = new Chat({
@@ -14,7 +14,7 @@ router.post('/chat', async (req, res) => {
         await chat.save()
         res.send({ message: 'Successfully Saved', status: true })
     } catch (e) {
-        res.send({ message: 'Failed to Post cjat ' + e.message, status: false })
+        res.send({ message: 'Failed to Post chat ' + e.message, status: false })
     }
 })
 
@@ -27,13 +27,13 @@ router.get('/chat', async (req, res) => {
     }
 })
 
-router.post('/chatmore', async (req, res) => {
+router.post('/chatmessageload', async (req, res) => {
     try {
         const {limit} = req.body
         const chat = await Chat.find().sort({createdAt: -1}).limit(limit)
         res.send({chat})
     } catch (e) {
-        res.send({ message: 'Failed to Get Event', status: false })
+        res.send({ message: 'Failed to Get chat', status: false })
     }
 })
 

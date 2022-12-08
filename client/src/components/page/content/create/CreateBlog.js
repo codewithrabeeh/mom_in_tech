@@ -19,7 +19,7 @@ function CreatePost() {
 
     const createPostHandler = async () => {
         try {                        
-            const response = await fetch('http://127.0.0.1:4005/blog', {
+            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/blog', {
                 method: 'POST',
                 body: JSON.stringify({
                     title: titleRef.current.value,

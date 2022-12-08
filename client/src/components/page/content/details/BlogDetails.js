@@ -26,9 +26,8 @@ function PostDetails() {
   const handleLike = (blogID, like) => {
     dispatch(likeBlog({ userName, blogID, like,single:true }));
   };
-console.log(blogId)
   const deleteHandler = async () => {
-    const response = await fetch(`http://127.0.0.1:4005/blog/${blogId}`, {
+    const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${isAuth}`,

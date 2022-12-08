@@ -6,8 +6,32 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
+import Skeleton from "@mui/material/Skeleton";
 
 function Event() {
+
+  const SkeletonOfBlog = (
+
+    <div className={`${classes.blog} mt-4`}>
+      <Card>
+        <Card.Body>
+          <Card.Title>
+            <h2>
+              <Skeleton width="220px" animation="wave" />
+            </h2>
+          </Card.Title>
+          <Card.Text>
+            <>
+              <Skeleton animation="wave" /> <Skeleton animation="wave" />
+              <Skeleton animation="wave" />
+            </>
+          </Card.Text>
+          <Card.Subtitle></Card.Subtitle>
+        </Card.Body>
+      </Card>
+    </div>
+
+  );
 
   const navigate = useNavigate()
   const isAuth = useSelector(state => state.auth.token)
@@ -16,7 +40,7 @@ function Event() {
 
   const fetchData = async () => {
 
-    const response = await fetch('http://127.0.0.1:4005/event', {
+    const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/event', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${isAuth}`
@@ -61,7 +85,7 @@ function Event() {
           />
         </div>}
 
-        {eventList.map((e, index) => {
+        {eventList.length > 0 ? eventList.map((e, index) => {
           return <div key={index} className={`${classes.blog} mt-4`}>
             <Card onClick={() => { navigate(`/event/${e._id}`) }}>
               <Card.Body>
@@ -76,7 +100,7 @@ function Event() {
             </Card>
           </div>
 
-        })}
+        }) : <> {SkeletonOfBlog}{SkeletonOfBlog}{SkeletonOfBlog}</> }
         <div className="mb-5"></div>
 
       </div>

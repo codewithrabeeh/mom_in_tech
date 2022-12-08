@@ -17,17 +17,16 @@ function ChatBox() {
     const userName = useSelector(state => state.auth.username)
     const isAuth = useSelector(state => state.auth.token)
     const toggleChat = useSelector(state => state.auth.isChatOpen)
-    const sampleData = [{ username: 'Jhon', message: 'Hello' }, { username: 'Ram', message: 'Hey' }]
     const [messageData, setMessageData] = useState()
     const [events, setEvents] = useState([]);
     const [limit, setLimit] = useState(60)
-    const [mentionName, setMentionName] = useState([])
+
 
     const onSendMessageHandler = async () => {
-        if(inputRef.current.value) {
+        if (inputRef.current.value) {
             try {
                 setLimit(limit + 1)
-                const response = await fetch('http://127.0.0.1:4005/chat', {
+                const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/chat', {
                     method: 'POST',
                     body: JSON.stringify({
                         username: userName,
@@ -38,29 +37,29 @@ function ChatBox() {
                         Authorization: `Bearer ${isAuth}`
                     }
                 })
-    
+
                 const data = await response.json()
-    
+
                 if (!data.status) {
                     alert('Failed to send message')
                 }
-    
+
                 inputRef.current.value = ''
                 syncGroupMessage()
-    
+
             } catch (e) {
-                alert('line 44', e.message)
+                alert(e.message)
             }
         } else {
             alert('Message Input is Empty')
         }
     }
 
+
     const onLoadMoreHandler = async () => {
         try {
             setLimit(limit + 30)
-            console.log(limit)
-            const response = await fetch('http://127.0.0.1:4005/chatmore', {
+            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/chatmessageload', {
                 method: 'POST',
                 body: JSON.stringify({
                     limit: limit + 30
@@ -78,25 +77,25 @@ function ChatBox() {
     }
 
     const syncGroupMessage = async () => {
-            try {
+        try {
 
-                const response = await fetch('http://127.0.0.1:4005/chatmore', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        limit: limit
-                    }),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                const data = await response.json()
-                const reversed = data.chat.reverse();
-                const onlyUsernames = reversed.map(e => e.username)
-                setMentionName(onlyUsernames) 
-                setMessageData(reversed)                
-            } catch (e) {
-               
-            }
+            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/chatmessageload', {
+                method: 'POST',
+                body: JSON.stringify({
+                    limit: limit
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            const data = await response.json()
+            const reversed = data.chat.reverse();
+            // const onlyUsernames = reversed.map(e => e.username)
+            // setMentionName(onlyUsernames)
+            setMessageData(reversed)
+        } catch (e) {
+
+        }
     }
 
     useEffect(() => {
@@ -129,8 +128,8 @@ function ChatBox() {
     }, [toggleChat])
 
     return (
-        <div> 
-            <div className={`${classes.chatbox} ${toggleChat ? classes.chatboxtrue : classes.chatboxfalse}`}> 
+        <div>
+            <div className={`${classes.chatbox} ${toggleChat ? classes.chatboxtrue : classes.chatboxfalse}`}>
 
                 <div className={`${classes.messageBar}`} >
                     <h5 className='pt-2 ps-2'>Momintech - Chat Group</h5>
@@ -140,11 +139,11 @@ function ChatBox() {
 
                 <div ref={chatMessageDiv} className={classes.messagebox}>
 
-                    {messageData && <div className="d-flex justify-content-center w-100 mt-2 mb-2"><Button size='sm' variant="warning" onClick={onLoadMoreHandler}>Load More</Button>{' '}</div>}
-                    
+                    {!messageData && <div className="d-flex justify-content-center w-100 mt-2 mb-2"><Button size='sm' variant="warning" onClick={onLoadMoreHandler}>Load More</Button>{' '}</div>}
+
                     {messageData ? messageData.map((e, i) => {
                         const isTheUser = userName === e.username
-                        return <div key={i} className={classes.message} style={{ backgroundColor: isTheUser ? 'white' : 'rgb(145 214 245)', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px', fontFamily: 'Roboto', lineHeight:'20px', paddingLeft: '7px' }}>
+                        return <div key={i} className={classes.message} style={{ backgroundColor: isTheUser ? 'white' : 'rgb(145 214 245)', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px', fontFamily: 'Roboto', lineHeight: '20px', paddingLeft: '7px' }}>
                             {e.message}
                             <div style={{ fontSize: '10px', color: 'grey', fontFamily: 'Zen Dots' }}>
                                 by {isTheUser ? 'You' : e.username}
@@ -154,15 +153,14 @@ function ChatBox() {
 
                 </div>
 
-                {isAuth && <div className='d-flex'>
+                {isAuth && <div className={`${classes.input} d-flex justify-content-center align-items-center`}>
                     <Form.Control
                         type="text"
                         ref={inputRef}
                         placeholder="Send Message"
                         style={{boxShadow: 'none', border: '0', outline: '0', borderRadius: '0'}}
                     />
-
-                    <Button style={{borderRadius: '0'}} variant="success" onClick={onSendMessageHandler}>Send</Button>{' '}
+                    <Button style={{ borderRadius: '0' }} variant="success" onClick={onSendMessageHandler}>Send</Button>{' '}
                 </div>}
             </div>
         </div>

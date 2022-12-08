@@ -17,7 +17,7 @@ function EventDetails() {
 
     const deleteHandler = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:4005/event/${eventId}`, {
+            const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/event/${eventId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${isAuth}`
@@ -31,7 +31,6 @@ function EventDetails() {
             if(data.status === 'Unauthorized') {
                 alert('Unauthorized to Delete')
             }
-            console.log(data)
             navigate('/event')
         } catch (e) {
             alert(e.message)
@@ -39,7 +38,7 @@ function EventDetails() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:4005/event/${eventId}`, {
+        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/event/${eventId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`
