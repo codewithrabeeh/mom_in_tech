@@ -19,6 +19,7 @@ import Blog from './components/page/content/show/Blog'
 import EventDetails from './components/page/content/details/EventDetails';
 import EditBlog from './components/page/content/edit/EditBlog';
 import ChatBox from './components/ChatBox';
+import PageNotFound from './components/errors/PageNotFound';
 
 function App() {
 
@@ -50,6 +51,8 @@ function App() {
         {/* Authentication */}
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='*' index element={<PageNotFound/>} />
+
 
 
       </Routes>

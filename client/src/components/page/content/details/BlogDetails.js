@@ -12,6 +12,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import classes from "./BlogDetails.module.css";
 import { authActions } from "../../../store/auth";
 import SidePanel from "../SidePanel";
+import Skeleton from "@mui/material/Skeleton";
+
 import { getABlog, getAllBlog, likeBlog } from "../../../store/blog";
 
 function PostDetails() {
@@ -125,7 +127,7 @@ function PostDetails() {
                   <Card.Title>
                 <h2>{singleBlog?.title}</h2>
                   </Card.Title>
-              <Card.Text>{parseBody(singleBlog?.body ? singleBlog?.body:"")}</Card.Text>
+              <Card.Text>{singleBlog.body ? parseBody(singleBlog?.body) : Array(4).fill(0).map(() => <Skeleton />)}</Card.Text>
                   <Card.Subtitle>
                 {singleBlog?.like?.some((el) => el === userName) ? (
                       <>
