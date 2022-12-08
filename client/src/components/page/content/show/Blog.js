@@ -101,7 +101,7 @@ function Dashboard() {
           );
         })}
       </div>
-      <SidePanel /> {/* chat={setOpenChat} */}
+      {/* <SidePanel /> */}
     </div>
   );
 }

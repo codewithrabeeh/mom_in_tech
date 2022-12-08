@@ -6,7 +6,7 @@ const { isAuth } = require('../middleware/Auth')
 
 router.get('/job', async (req, res) => {
     try {
-        const post = await Job.find()
+        const post = await Job.find().sort({createdAt: -1});
         res.send({post, status: true})
     } catch (e) {
         res.send({ message: 'Failed to Get Blog Collections', status: false  })

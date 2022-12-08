@@ -7,7 +7,7 @@ const { isAuth } = require("../middleware/Auth");
 
 router.get("/blog", async (req, res) => {
   try {
-    const post = await Blog.find();
+    const post = await Blog.find().sort({createdAt: -1});
     res.send({ post, status: true });
   } catch (e) {
     res.send({ message: "Failed to Get Blog Collections", status: false });
@@ -80,6 +80,7 @@ router.post("/blog/:id/like", isAuth, async (req, res) => {
 
 router.get('/searchblog', async (req, res) => {
   try {
+    console.log('first')
       const {title} = req.query
       const agg = [
           {

@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initiateAuthState = {
     username: localStorage.getItem('username'),
     token: localStorage.getItem('token'),
-    isChatOpen: false 
+    isChatOpen: true  
 }
 
 const authSlice = createSlice({

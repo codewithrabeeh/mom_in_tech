@@ -6,7 +6,7 @@ const { isAuth } = require('../middleware/Auth')
 
 router.get('/event', async (req, res) => {
     try {
-        const event = await Event.find()
+        const event = await Event.find().sort({createdAt: -1});
         res.send({ event, status: true })
     } catch (e) {
         res.send({ message: 'Failed to Get Event Collections', status: false })

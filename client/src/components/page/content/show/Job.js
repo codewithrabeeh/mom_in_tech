@@ -81,7 +81,7 @@ function Job() {
                 })}
 
             </div>
-            <SidePanel />
+            {/* <SidePanel /> */}
         </div>
     )
 }

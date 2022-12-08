@@ -82,7 +82,7 @@ function Event() {
         })}
 
       </div>
-      <SidePanel />
+      {/* <SidePanel /> */}
     </div>
   )
 }

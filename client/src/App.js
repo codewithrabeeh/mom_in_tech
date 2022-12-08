@@ -14,7 +14,7 @@ import CreateBlog from './components/page/content/create/CreateBlog';
 import CreateEvent from './components/page/content/create/CreateEvent';
 import CreateJob from './components/page/content/create/CreateJob'
 import Job from './components/page/content/show/Job';
-import Event from './components/page/content/show/Event';
+import Event from './components/page/content/show/Event'; 
 import Blog from './components/page/content/show/Blog'
 import EventDetails from './components/page/content/details/EventDetails';
 import EditBlog from './components/page/content/edit/EditBlog';

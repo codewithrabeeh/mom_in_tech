@@ -14,7 +14,7 @@ router.post('/chat', async (req, res) => {
         await chat.save()
         res.send({ message: 'Successfully Saved', status: true })
     } catch (e) {
-        res.send({ message: 'Failed to Post Event ' + e.message, status: false })
+        res.send({ message: 'Failed to Post cjat ' + e.message, status: false })
     }
 })
 
@@ -23,13 +23,14 @@ router.get('/chat', async (req, res) => {
         const chat = await Chat.find()
         res.send({ chat, status: true })
     } catch (e) {
-        res.send({ message: 'Failed to Post Event', status: false })
+        res.send({ message: 'Failed to Post Chat', status: false })
     }
 })
 
-router.get('/chatlast', async (req, res) => {
+router.post('/chatmore', async (req, res) => {
     try {
-        const chat = await Chat.aggregate.limit(5)
+        const {limit} = req.body
+        const chat = await Chat.find().sort({createdAt: -1}).limit(limit)
         res.send({chat})
     } catch (e) {
         res.send({ message: 'Failed to Get Event', status: false })

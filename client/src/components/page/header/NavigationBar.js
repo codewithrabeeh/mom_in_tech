@@ -58,14 +58,16 @@ function NavigationBar() {
 
     <Navbar className={classes.navbarStyle}>
       <Container fluid >
-        <Navbar.Brand ><img style={{ width: '120px' }} src={usernameLogo} /></Navbar.Brand>
+        <Navbar.Brand className='d-flex justify-content-center align-items-center' ><img style={{ width: '120px' }} src={usernameLogo} /></Navbar.Brand>
         <Nav>
           <Navbar.Collapse >
+            <div style={{position: 'relative', left: '-30%'}}>
             <Link className={classes.navbarColor} to='/'>Home</Link>
-            <Link className={`ms-3 ${classes.navbarColor}`} to='/dashboard'>Explore</Link>
-            {!isAuth && <Nav.Link href="#event" className={`ms-2 ${classes.navbarColor}`}>Events</Nav.Link>}
-
-            {path && <div className='ms-4' style={{ width: 300 }}>
+            <Link className={`ms-3 ${classes.navbarColor}`} to='/dashboard'>Blog</Link>
+            <Link className={`ms-3 ${classes.navbarColor}`} to='/event'>Event</Link>
+            <Link className={`ms-3 ${classes.navbarColor}`} to='/job'>Job</Link>
+            </div>
+            {path && <div className='ms-4' style={{ width: '400px' }}>
               <ReactSearchAutocomplete
                 items={fetchResult}
                 maxResults='4'
