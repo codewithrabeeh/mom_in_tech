@@ -2,11 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import classes from './BlogDetails.module.css'
-import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel';
+import classes from './Details.module.css'
 
 function EventDetails() {
     const params = useParams()
@@ -77,16 +75,15 @@ function EventDetails() {
                                 {event.description}
                             </Card.Text>
                             <Card.Subtitle className="mb-2 text-muted">Location <p className='text-dark'>{event.location}</p></Card.Subtitle>
-                            {/* <Card.Link className='text-warning text-decoration-none' href={`https://${event.link}`}>{event.link}</Card.Link> */}
                             <a href={`https://${event.link}`} target="_blank">{event.link}</a>
                             <div className='mt-3'>
-                                {isUser ? <Button onClick={deleteHandler} variant="danger">Delete</Button> : null}
+                                {isUser ? <Button onClick={deleteHandler} style={{background: '#dc3545', border: 'none'}}>Delete</Button> : null}
                             </div>
                         </Card.Body>
                     </Card>
                 </div>
             </div>
-            {/* <SidePanel /> */}
+  
         </div>
     )
 }

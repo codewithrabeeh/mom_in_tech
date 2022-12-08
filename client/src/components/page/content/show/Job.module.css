@@ -1,8 +1,7 @@
 .dashboard{
-    height: auto; /* siuuuu */
+    height: auto;
     width: 100%;
     display: flex;
-    /* flex-direction: row; */
 }
 
 .dashboard h1{
@@ -48,10 +47,4 @@
     background-color: white;
     height: auto;
     width: 70%;
-}
-
-/* Dashboard Second */
-
-.livechatbtn {
-    background-color: #00DD31;
 }

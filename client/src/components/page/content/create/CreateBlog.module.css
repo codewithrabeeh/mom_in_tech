@@ -11,7 +11,7 @@
 }
 
 .dashboardOne {
-    width: 80%;
+    width: 100%;
     height: auto;
     display: flex;
     justify-content: flex-start;
@@ -49,9 +49,10 @@
     align-items: center;
 }
 
-.inputMain{
+.inputMain input{
     width: 80%;
     height: 70%;
+    outline: none; 
 }
 
 .blog{

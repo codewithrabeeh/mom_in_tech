@@ -6,12 +6,10 @@ import LikeFill from "@mui/icons-material/Favorite";
 
 import parseBody from "html-react-parser";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "./Blog.module.css";
-import { authActions } from "../../../store/auth";
-import SidePanel from "../SidePanel";
 import { getAllBlog, likeBlog } from "../../../store/blog";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -55,7 +53,7 @@ function Dashboard() {
   return (
     <div className={classes.dashboard}>
       <div className={classes.dashboardOne}> 
-        <div className={`${classes.inputDiv} mt-4`}>
+      {isAuth && <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
             onClick={() => {
               navigate("/createblog");
@@ -66,11 +64,11 @@ function Dashboard() {
             aria-describedby="createapost"
             className={classes.inputMain}
           />
-        </div>
+        </div>}
 
         {blogList.length>0 ? blogList.map((el, index) => {
           return (
-            <div key={index} className={`${classes.blog} mt-4`}>
+            <div key={index} className={`${classes.blog} mt-3`}>
               <Card
                 onClick={(e) => {
                   e.stopPropagation();
@@ -106,8 +104,9 @@ function Dashboard() {
                             e.stopPropagation();
                             handleLike(el._id, false);
                           }}
+                          style={{color: 'red'}}
                         />
-                        <span> likes {el.like?.length}</span>
+                        <span> {el.like?.length}</span>
                       </>
                     ) : (
                       <>
@@ -117,19 +116,18 @@ function Dashboard() {
                             handleLike(el._id, true);
                           }}
                         />
-                        <span> likes {el.like?.length}</span>
+                        <span> {el.like?.length}</span>
                       </>
                     )}
 
-                    {/* /blog/:id/like */}
                   </Card.Subtitle>
                 </Card.Body>
               </Card>
             </div>
           );
         }) : <>{SkeletonOfBlog}{SkeletonOfBlog}{SkeletonOfBlog}</>}
+        <div className="mb-5"></div>
       </div>
-      {/* <SidePanel /> */}
     </div>
   );
 }

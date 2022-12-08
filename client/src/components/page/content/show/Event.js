@@ -1,15 +1,11 @@
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form'
 
-// import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel';
-import ChatBox from '../../../ChatBox';
 
 function Event() {
 
@@ -54,7 +50,7 @@ function Event() {
 
       <div className={classes.dashboardOne}>
 
-        <div className={`${classes.inputDiv} mt-4`}>
+       {isAuth && <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
             onClick={() => { navigate('/createevent') }}
             placeholder="Create an event"
@@ -63,7 +59,7 @@ function Event() {
             aria-describedby="createapost"
             className={classes.inputMain}
           />
-        </div>
+        </div>}
 
         {eventList.map((e, index) => {
           return <div key={index} className={`${classes.blog} mt-4`}>
@@ -74,7 +70,6 @@ function Event() {
                   {e.description}
                 </Card.Text>
                 <Card.Subtitle className="mb-2 text-muted">Location <p className='text-dark'>{e.location}</p></Card.Subtitle>
-                {/* <Card.Link className='text-warning text-decoration-none' href={e.link}>{e.link}</Card.Link> */}
                 <a href={`https://${e.link}`} target="_blank">{e.link}</a>
 
               </Card.Body>
@@ -82,9 +77,9 @@ function Event() {
           </div>
 
         })}
+        <div className="mb-5"></div>
 
       </div>
-      {/* <SidePanel /> */}
     </div>
   )
 }

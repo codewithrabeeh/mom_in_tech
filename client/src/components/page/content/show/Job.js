@@ -1,20 +1,16 @@
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CreateBlog from '../create/CreateBlog';
 
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel';
 
 function Job() {
 
     const navigate = useNavigate()
     const isAuth = useSelector(state => state.auth.token)
-    const userName = useSelector(state => state.auth.username)
     const dispatch = useDispatch()
     const [blogList, setBlogList] = useState([])
 
@@ -53,7 +49,7 @@ function Job() {
 
             <div className={classes.dashboardOne}>
 
-                <div className={`${classes.inputDiv} mt-4`}>
+                {isAuth && <div className={`${classes.inputDiv} mt-4`}>
                     <Form.Control
                         onClick={() => { navigate('/createjob') }}
                         placeholder="Create a job"
@@ -62,7 +58,7 @@ function Job() {
                         aria-describedby="createapost"
                         className={classes.inputMain}
                     />
-                </div>
+                </div>}
 
                 {blogList.map((e, index) => {
                     return <div key={index} className={`${classes.blog} mt-4`}>
@@ -73,7 +69,6 @@ function Job() {
                                     {e.description}
                                 </Card.Text>
                                 <Card.Subtitle className="mb-2 text-muted">Apply to</Card.Subtitle>
-                                {/* <Card.Link className="text-decoration-none text-info" href={`mailto:${e.email}`}>{e.email}</Card.Link> */}
                                 <a className="text-decoration-none text-info" href={`mailto:${e.email}`} target='_blank'>{e.email}</a>
 
                             </Card.Body>
@@ -81,7 +76,7 @@ function Job() {
                     </div>
 
                 })}
-
+                <div className="mb-5"></div>
             </div>
         </div>
     )

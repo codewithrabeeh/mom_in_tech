@@ -1,27 +1,20 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateBlog.module.css'
-import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel';
 
 function CreatePost() {
-
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const isAuth = useSelector(state => state.auth.token)
     const userName = useSelector(state => state.auth.username)    
     const titleRef = useRef()
-    // const bodyRef = useRef()
     const [body, setBody] = useState('')
-
     const [value, setValue] = useState()
 
     const createPostHandler = async () => {
@@ -52,6 +45,10 @@ function CreatePost() {
         navigate('/dashboard')
     }
 
+    useEffect(() => {
+    titleRef.current && titleRef.current.focus()
+    }, [])
+
     if(!isAuth){
         return <Navigate to='/dashboard' />
     }
@@ -63,47 +60,35 @@ function CreatePost() {
                 <div className="d-flex justify-content-start align-items-start w-75 mb-1">
                 </div>
                 <div className={`${classes.titleDiv} w-75`}>
-                    <Form.Control
+                    <Form.Control                        
                         ref={titleRef}
                         placeholder="Title"
                         type="text"
                         id="createPost"
                         aria-describedby="createapost"
+                        style={{boxShadow: 'none'}}
                         className={`${classes.inputMain} w-75 mt-3`}
                     />
-                    {/* <Form.Group className="my-3 w-75" controlId="exampleForm.ControlTextarea1">
-                        <Form.Control ref={bodyRef} as="textarea" placeholder='Body' rows={10} cols={58} />
-                    </Form.Group> */}
-
                     <div className='w-75 mt-2 mb-4'>
-                    <CKEditor
                     
+                    <CKEditor
                     editor={ ClassicEditor }
                     data=""
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
+                    // onReady={ editor => {                    
+                    // } }
                     onChange={ ( event, editor ) => {
                         const data = editor.getData();
                         setBody(data)
                     } }
-                    // onBlur={ ( event, editor ) => {
-                    //     console.log( 'Blur.', editor );
-                    // } }
-                    // onFocus={ ( event, editor ) => {
-                    //     console.log( 'Focus.', editor );
-                    // } }
                 />
                     </div>
 
                     <div className="d-flex mb-4">
-                        <Button onClick={createPostHandler} variant="success" className='me-5'>Create Post</Button>
-                        <Button onClick={cancelHandler} variant="danger" className=''>Cancel</Button>
+                        <Button onClick={createPostHandler} className='me-5' style={{backgroundColor: 'rgb(128, 204, 200)', border: 'none'}}>Create Post</Button>
+                        <Button onClick={cancelHandler}  style={{backgroundColor: 'rgb(220, 53, 69)', border: 'none'}}>Cancel</Button>
                     </div>
                 </div>
             </div>
-            <SidePanel />
         </div>
     )
 }

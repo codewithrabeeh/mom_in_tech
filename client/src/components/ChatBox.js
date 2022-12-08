@@ -7,8 +7,6 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux'
 import *  as  Realm from "realm-web";
 import { authActions } from './store/auth'
-import TextInput from 'react-autocomplete-input';
-import 'react-autocomplete-input/dist/bundle.css';
 
 const app = new Realm.App({ id: "application-0-wfjzk" });
 
@@ -22,7 +20,7 @@ function ChatBox() {
     const sampleData = [{ username: 'Jhon', message: 'Hello' }, { username: 'Ram', message: 'Hey' }]
     const [messageData, setMessageData] = useState()
     const [events, setEvents] = useState([]);
-    const [limit, setLimit] = useState(30) /* if collection data lesser than limit hide load more */
+    const [limit, setLimit] = useState(60)
     const [mentionName, setMentionName] = useState([])
 
     const onSendMessageHandler = async () => {
@@ -97,20 +95,17 @@ function ChatBox() {
                 setMentionName(onlyUsernames) 
                 setMessageData(reversed)                
             } catch (e) {
-                // alert('line 92', e.message)
+               
             }
     }
 
     useEffect(() => {
         const login = async () => {
-            // Authenticate anonymously
             const user = await app.logIn(Realm.Credentials.anonymous());
 
-            // Connect to the database
             const mongodb = app.currentUser.mongoClient("mongodb-atlas");
             const collection = mongodb.db("momintech").collection("chatgroups");
 
-            // Everytime a change happens in the stream, add it to the list of events
             for await (const change of collection.watch()) {
                 setEvents(events => [...events, change]);
             }
@@ -134,25 +129,31 @@ function ChatBox() {
     }, [toggleChat])
 
     return (
-        <div> {/* style={{ display: 'flex', height: openChat ? '55%' : "0" }} */}
-            <div className={classes.chatbox} style={{ height: toggleChat ? '400px' : '5%', bottom: !toggleChat ? '0' : '1.2%'  }} >
-                <div className='d-flex justify-content-between align-items-center'>
+        <div> 
+            <div className={`${classes.chatbox} ${toggleChat ? classes.chatboxtrue : classes.chatboxfalse}`}> 
+
+                <div className={`${classes.messageBar}`} >
                     <h5 className='pt-2 ps-2'>Momintech - Chat Group</h5>
                     {toggleChat && <ArrowDropDownIcon onClick={() => { dispatch(authActions.toggleChat()) }} className={`me-1 ${classes.dropdown}`} />}
                     {!toggleChat && <ArrowDropUpIcon onClick={() => { dispatch(authActions.toggleChat()); syncGroupMessage(); }} className={`me-1 ${classes.dropdown}`} />}
                 </div>
+
                 <div ref={chatMessageDiv} className={classes.messagebox}>
+
                     {messageData && <div className="d-flex justify-content-center w-100 mt-2 mb-2"><Button size='sm' variant="warning" onClick={onLoadMoreHandler}>Load More</Button>{' '}</div>}
+                    
                     {messageData ? messageData.map((e, i) => {
                         const isTheUser = userName === e.username
-                        return <div key={i} className={classes.message} style={{ backgroundColor: isTheUser ? 'white' : 'skyblue', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px', fontFamily: 'Roboto', lineHeight:'20px', paddingLeft: '7px' }}>
+                        return <div key={i} className={classes.message} style={{ backgroundColor: isTheUser ? 'white' : 'rgb(145 214 245)', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px', fontFamily: 'Roboto', lineHeight:'20px', paddingLeft: '7px' }}>
                             {e.message}
                             <div style={{ fontSize: '10px', color: 'grey', fontFamily: 'Zen Dots' }}>
                                 by {isTheUser ? 'You' : e.username}
                             </div>
                         </div>
                     }) : <div className="d-flex justify-content-center w-100 mt-2 mb-2"><Button size='sm' variant="success" onClick={syncGroupMessage} >Refresh</Button>{' '}</div>}
+
                 </div>
+
                 {isAuth && <div className='d-flex'>
                     <Form.Control
                         type="text"

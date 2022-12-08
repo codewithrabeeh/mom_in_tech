@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 
 import React, { useRef } from 'react'
-// import classes from './Register.module.css'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
@@ -58,36 +57,7 @@ function Register() {
   }
 
   return (
-    // <div className={classes.register}>
-    //   <div className={classes.box}>
-    //     <h2 className={classes.heading}>Register</h2>
-    //     <form onSubmit={onSubmitHandler} className={classes.form}>
-    //       <label>Username</label>
-    //       <input
-    //         type='text'
-    //         id='username'
-    //         label='username'
-    //         ref={usernameRef}
-    //       />
-    //       <label>Email</label>
-    //       <input
-    //         type='email'
-    //         id='email'
-    //         label='email'
-    //         ref={emailRef} />
-    //       <label>Password</label>
-    //       <input
-    //         type='password'
-    //         id='password'
-    //         label='password'
-    //         ref={passwordRef}
-    //       />
-    //       <button>Register</button>
-    //     </form>
-    //   </div>
-
-    // </div>
-
+    
     <div style={{ height: '80%', width: '100%' }} className='d-flex justify-content-center align-items-center'>
       <Card className="">
         <Card.Body style={{ width: '400px' }}>

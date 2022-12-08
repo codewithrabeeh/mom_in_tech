@@ -1,16 +1,10 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 
-import React, { useState, useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateEvent.module.css'
-import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel';
-
-
-/* clear the event, job, blog */
 
 function Event() {
 
@@ -53,6 +47,10 @@ function Event() {
     const cancelHandler = () => {
         navigate('/event')
     }
+
+    useEffect(() => {
+        titleRef.current && titleRef.current.focus()
+        }, [])
 
     if(!isAuth) {
         return <Navigate to='/event' />
@@ -97,13 +95,12 @@ function Event() {
                     />
 
                     <div className="d-flex mb-4 mt-4">
-                        <Button onClick={createPostHandler} variant="success" className='me-5'>Create Event</Button>
-                        <Button onClick={cancelHandler} variant="danger" className=''>Cancel</Button>
+                        <Button onClick={createPostHandler} style={{backgroundColor: 'rgb(128, 204, 200)', border: 'none'}} className='me-5'>Create Event</Button>
+                        <Button onClick={cancelHandler} style={{backgroundColor: 'rgb(220, 53, 69)', border: 'none'}}>Cancel</Button>
                         
                     </div>
                 </div>
             </div>
-            <SidePanel />
         </div>
     )
 }

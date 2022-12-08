@@ -19,16 +19,6 @@
     flex-direction: column;
 }
 
-.dashboardTwo {
-    width: 20%;
-    height: auto;
-    background-color: white;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-}
-
 .titleDiv{
     width: 70%;
     height: auto;
@@ -57,10 +47,4 @@
     background-color: white;
     height: auto;
     width: 70%;
-}
-
-/* Dashboard Second */
-
-.livechatbtn {
-    background-color: #00DD31;
 }

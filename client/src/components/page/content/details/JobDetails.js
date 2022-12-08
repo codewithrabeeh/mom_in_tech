@@ -2,12 +2,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import classes from './BlogDetails.module.css'
-import { authActions } from '../../../store/auth'
-import SidePanel from '../SidePanel';
-/* todo - delete button */
+import classes from './Details.module.css'
+
+
 function JobDetails() {
     const params = useParams()
     const { jobId } = params
@@ -75,7 +74,7 @@ function JobDetails() {
                     </Card>
                 </div>
             </div>
-            {/* <SidePanel /> */}
+           \
         </div>
     )
 }

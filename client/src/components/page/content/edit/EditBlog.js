@@ -10,14 +10,12 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import classes from './EditBlog.module.css'
-import SidePanel from '../SidePanel';
 
 function EditBlog() {
 
     const params = useParams()
     const { blogId } = params
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const isAuth = useSelector(state => state.auth.token)
     const userName = useSelector(state => state.auth.username)
     const [blog, setBlog] = useState([])
@@ -67,8 +65,6 @@ function EditBlog() {
         setBlog(data)
         console.log(data)
         titleRef.current.value = data.title
-        // bodyRef.current.value = data.body
-
     }
 
     useEffect(() => {
@@ -99,11 +95,7 @@ function EditBlog() {
 
                             editor={ClassicEditor}
                             data={blog.body}
-                            onReady={editor => {
-                                // You can store the "editor" and use when it is needed.
-                                console.log('Editor is ready to use!', editor);
-                            }}
-                            onChange={(event, editor) => {
+                            onChange={(editor) => {
                                 const data = editor.getData();
                                 setBody(data)
                             }}
@@ -117,7 +109,6 @@ function EditBlog() {
                     </div>
                 </div>
             </div>
-            <SidePanel />
         </div>
     )
 }

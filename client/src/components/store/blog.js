@@ -77,20 +77,20 @@ const blogReducer = createSlice({
         else state.blog.like?.splice(state.blogList.indexOf(action.payload.userName), 1);
       } else {
         state.blogList = blogList.map(blog => {
-          //checking which blog user liked
+          
           if (blog._id === action.payload.blogID) {
             console.log(blog._id);
-            //checking user liked or unliked
+            
             if (action.payload.like) {
-              //pushig were user match
+              
 
               blog.like.push(action.payload.userName);
             } else {
-              //popping were user match
+              
               blog.like.splice(blog.like.indexOf(action.payload.userName), 1)
             }
           }
-          //final
+       
           return blog;
         });
       }
