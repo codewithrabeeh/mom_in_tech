@@ -7,7 +7,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateBlog.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
@@ -50,6 +50,10 @@ function CreatePost() {
     }
     const cancelHandler = () => {
         navigate('/dashboard')
+    }
+
+    if(!isAuth){
+        return <Navigate to='/dashboard' />
     }
 
     return (

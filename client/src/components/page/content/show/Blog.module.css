@@ -55,7 +55,7 @@
     background-color: #00DD31;
 }
 
-.chatBox{
+/* .chatBox{
     width: 250px;
     background-color: #000000;
     position: fixed;
@@ -65,11 +65,11 @@
     bottom: 0;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
     box-shadow: inset -1px 20px 20px 0px #1070ff;
-    
+    font-family: ;
 
 }
 .chatBox::after{
-    /* content: 'Chat Box'; */
+    content: 'Chat Box';
     padding-top: 8px;
     color: #F5F6FA;
     text-align: center;
@@ -78,4 +78,4 @@
     height: 12%;
      border-radius: 20px 20px 0 0;
     background-color: black;
-}
+} */

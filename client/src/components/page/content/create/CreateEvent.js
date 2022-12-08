@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateEvent.module.css'
 import { authActions } from '../../../store/auth'
 import SidePanel from '../SidePanel';
@@ -54,10 +54,14 @@ function Event() {
         navigate('/event')
     }
 
+    if(!isAuth) {
+        return <Navigate to='/event' />
+    }
+
     return (
 
         <div className={`${classes.dashboard}`}>
-            <div className={classes.dashboardOne}>
+            <div className={`${classes.dashboardOne} pt-4`}>
                 <div className="d-flex justify-content-start align-items-start w-75 mb-1">
                 </div>
                 <div className={`${classes.titleDiv} w-75`}>

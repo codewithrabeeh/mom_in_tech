@@ -39,7 +39,7 @@ function Dashboard() {
       {/* <div className={classes.chatBox} style={{ display: 'flex', height: openChat ? '55%' : "0" }}>
       </div> */}
       {/* <ChatBox /> */}
-      <div className={classes.dashboardOne}>
+      <div className={classes.dashboardOne}> 
         <div className={`${classes.inputDiv} mt-4`}>
           <Form.Control
             onClick={() => {

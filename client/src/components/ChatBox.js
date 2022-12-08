@@ -12,6 +12,7 @@ import {authActions} from './store/auth'
 const app = new Realm.App({ id: "application-0-wfjzk" });
 
 function ChatBox() {
+    const chatMessageDiv = useRef(null)
     const inputRef = useRef()
     const dispatch = useDispatch()
     const userName = useSelector(state => state.auth.username)
@@ -20,7 +21,6 @@ function ChatBox() {
     const sampleData = [{ username: 'Jhon', message: 'Hello' }, { username: 'Ram', message: 'Hey' }]
     const [messageData, setMessageData] = useState()
     const [events, setEvents] = useState([]);
-
 
     const onSendMessageHandler = async () => {
         try {
@@ -85,6 +85,15 @@ function ChatBox() {
         }
       }, [events])
 
+      useEffect(() => {
+        if (chatMessageDiv) {
+            chatMessageDiv.current.addEventListener('DOMNodeInserted', event => {
+            const { currentTarget: target } = event;
+            target.scroll({ top: target.scrollHeight, behavior: 'auto' });
+          });
+        }
+      }, [toggleChat])
+
     return (
         <div> {/* style={{ display: 'flex', height: openChat ? '55%' : "0" }} */}        
             <div className={classes.chatbox} style={{height: toggleChat ? '400px' : '5%'}} >
@@ -93,12 +102,13 @@ function ChatBox() {
                     {toggleChat && <ArrowDropDownIcon onClick={() => {dispatch(authActions.toggleChat())}} className={`me-1 ${classes.dropdown}`} />}
                     {!toggleChat && <ArrowDropUpIcon onClick={() => {dispatch(authActions.toggleChat())}} className={`me-1 ${classes.dropdown}`} />}
                 </div>
-                <div className={classes.messagebox}>
+                <div ref={chatMessageDiv} className={classes.messagebox}>
+                    
                     {messageData ? messageData.map((e, i) => {
                         const isTheUser = userName === e.username
-                    return <div key={i} className={classes.message} style={{backgroundColor: isTheUser ? 'white' : 'skyblue', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px'}}>                       
+                    return <div key={i} className={classes.message} style={{backgroundColor: isTheUser ? 'white' : 'skyblue', alignSelf: isTheUser ? 'flex-start' : 'flex-end', marginTop: '3px', fontFamily: 'Roboto'}}>                       
                         {e.message} 
-                        <div style={{fontSize: '10px', color: 'grey'}}>
+                        <div style={{fontSize: '10px', color: 'grey', fontFamily: 'Zen Dots'}}>
                             by {isTheUser ? 'You' : e.username} 
                             </div>
                         </div>

@@ -50,9 +50,7 @@ function Event() {
 
   return (
 
-    <div className={classes.dashboard}>
-
-      {/* <ChatBox /> */}
+    <div className={`${classes.dashboard}`}>
 
       <div className={classes.dashboardOne}>
 

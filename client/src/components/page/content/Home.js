@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom';
 
 import React from 'react'
 import classes from './Home.module.css'
@@ -12,6 +13,7 @@ const thirdImage = 'https://res.cloudinary.com/deuyeqft4/image/upload/v166987492
 // import {useSelector} from 'react-redux'
 
 function Home() {
+  const navigate = useNavigate()
 
   return (
     <Container >
@@ -47,7 +49,7 @@ function Home() {
           <img src={thirdImage} style={{ width: '100%' }} alt='a girl chatting' />
         </Col>
       </Row>
-      <Row className='m-5'>
+      <Row className='m-5' style={{height: '80px'}}>
           <div>
             <h4>
               Explore the community. Get useful resources,
@@ -57,8 +59,8 @@ function Home() {
           </div>
       </Row>
       <Row>
-      <div className={`${classes.flexcenter} mb-5`}>
-            <Button className="justify-content-center" variant="success">Get Started</Button>{' '} 
+      <div className={`${classes.flexcenter} mb-4`}>
+            <Button className="justify-content-center" variant="success" onClick={()=> {navigate('/register')}}>Get Started</Button>{' '} 
             </div>
       </Row>
     </Container>

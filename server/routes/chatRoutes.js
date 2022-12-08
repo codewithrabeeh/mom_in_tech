@@ -27,4 +27,13 @@ router.get('/chat', async (req, res) => {
     }
 })
 
+router.get('/chatlast', async (req, res) => {
+    try {
+        const chat = await Chat.aggregate.limit(5)
+        res.send({chat})
+    } catch (e) {
+        res.send({ message: 'Failed to Get Event', status: false })
+    }
+})
+
 module.exports = router
