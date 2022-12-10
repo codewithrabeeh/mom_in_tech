@@ -8,6 +8,6 @@ and to start back-end <br>
 `npm run dev` <br>
 
 You need dbUrl variable in .env file. Which is a mongodb connection string. <br>
-eg: mongodb+srv://<username>:<password>@cluster0.wgwhurn.mongodb.net/?retryWrites=true&w=majority
+eg: `mongodb+srv://<username>:<password>@cluster0.wgwhurn.mongodb.net/?retryWrites=true&w=majority`
 
 
