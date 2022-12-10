@@ -1,4 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/587bdb74-17d4-445f-b149-445a3793e92d/deploy-status)](https://app.netlify.com/sites/momintech/deploys)
 
 ### Steps to run in local machine
 In terminal to start front-end <br>
