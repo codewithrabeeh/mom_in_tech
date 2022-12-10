@@ -49,7 +49,7 @@ function Home() {
       <div style={{textAlign: 'center'}}>
           <h4>
             Explore the community. Get useful resources,
-            motivations, job listing and other things.
+            motivations, job listing and many more.
           </h4>
 
         </div>
