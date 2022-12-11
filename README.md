@@ -1,3 +1,6 @@
+# Momintech
+![image](https://user-images.githubusercontent.com/65481473/206892280-5850de5c-a73a-4419-bd43-f476ae1eaa8f.png)
+
 
 ### Steps to run in local machine
 In terminal to start front-end <br>
