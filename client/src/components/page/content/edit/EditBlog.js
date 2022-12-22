@@ -94,8 +94,8 @@ function EditBlog() {
 
                             editor={ClassicEditor}
                             data={blog.body}
-                            onChange={(editor) => {
-                                const data = editor.getData();
+                            onChange={(event, editor) => {
+                                const data = editor.getData();                                
                                 setBody(data)
                             }}
                         />
@@ -103,7 +103,6 @@ function EditBlog() {
                     <div className="d-flex mb-4">
                         <Button onClick={editPostHandler} variant="success" className='me-5'>Edit Post</Button>
                         <Button onClick={cancelHandler} variant="danger" className=''>Cancel</Button>
-                        {!like ? <LikeButton onClick={() => setLike((l) => !l)} /> : <LikeFill onClick={() => setLike((l) => !l)} />}
 
                     </div>
                 </div>
