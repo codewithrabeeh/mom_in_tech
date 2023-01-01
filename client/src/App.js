@@ -23,7 +23,7 @@ import ChatBox from './components/ChatBox';
 import PageNotFound from './components/errors/PageNotFound';
 
 function App() {
-
+  const localhost = 'http://127.0.0.1:4005'
   // const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   // const dispatch = useDispatch()
   // dispatch(authActions.token())
@@ -34,25 +34,25 @@ function App() {
       <ChatBox />
       <Routes>
         {/* Main */}
-        <Route path='/' index element={<Home />} />
+        <Route path='/' index element={<Home host={localhost} />} />
         {/* Show List */}
-        <Route path='/dashboard' element={<Blog />} />
-        <Route path='/job' element={<Job />} />
-        <Route path='/event' element={<Event />} />
+        <Route path='/dashboard' element={<Blog host={localhost} />} />
+        <Route path='/job' element={<Job host={localhost} />} />
+        <Route path='/event' element={<Event host={localhost} />} />
         {/* Show Details */}
-        <Route path='/blog/:blogId' element={<BlogDetails />} />
-        <Route path='/job/:jobId' element={<JobDetails />} />
-        <Route path='/event/:eventId' element={<EventDetails />} />
+        <Route path='/blog/:blogId' element={<BlogDetails host={localhost} />} />
+        <Route path='/job/:jobId' element={<JobDetails host={localhost} />} />
+        <Route path='/event/:eventId' element={<EventDetails host={localhost} />} />
         {/* Create */}
-        <Route path='/createblog' element={<CreateBlog />} />
-        <Route path='/createjob' element={<CreateJob />} />
-        <Route path='/createevent' element={<CreateEvent />} />
+        <Route path='/createblog' element={<CreateBlog host={localhost} />} />
+        <Route path='/createjob' element={<CreateJob host={localhost} />} />
+        <Route path='/createevent' element={<CreateEvent host={localhost} />} />
         {/* Edit */}
-        <Route path='/editblog/:blogId' element={<EditBlog />} />
+        <Route path='/editblog/:blogId' element={<EditBlog host={localhost} />} />
         {/* Authentication */}
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='*' index element={<PageNotFound/>} />
+        <Route path='/login' element={<Login host={localhost} />} />
+        <Route path='/register' element={<Register host={localhost} />} />
+        <Route path='*' index element={<PageNotFound host={localhost} />} />
         
       </Routes>
     <Footer />

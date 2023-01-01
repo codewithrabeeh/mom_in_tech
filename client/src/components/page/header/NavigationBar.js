@@ -60,7 +60,7 @@ function NavigationBar() {
 
   async function fetchData(text) {
     if (text) {
-      const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/search${path}?title=${text}`)
+      const response = await fetch(`http://127.0.0.1:4005/search${path}?title=${text}`)
       const data = await response.json()
       setFetchResult(data)
     }

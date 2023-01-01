@@ -26,7 +26,7 @@ function ChatBox() {
         if (inputRef.current.value) {
             try {
                 setLimit(limit + 1)
-                const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/chat', {
+                const response = await fetch(`http://127.0.0.1:4005/chat`, {
                     method: 'POST',
                     body: JSON.stringify({
                         username: userName,
@@ -59,7 +59,7 @@ function ChatBox() {
     const onLoadMoreHandler = async () => {
         try {
             setLimit(limit + 30)
-            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/chatmessageload', {
+            const response = await fetch('http://127.0.0.1:4005/chatmessageload', {
                 method: 'POST',
                 body: JSON.stringify({
                     limit: limit + 30
@@ -79,7 +79,7 @@ function ChatBox() {
     const syncGroupMessage = async () => {
         try {
 
-            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/chatmessageload', {
+            const response = await fetch('http://127.0.0.1:4005/chatmessageload', {
                 method: 'POST',
                 body: JSON.stringify({
                     limit: limit

@@ -20,7 +20,7 @@ const jobRoutes = require('./routes/jobRoutes')
 const eventRoutes = require('./routes/eventRoutes')
 const chatRoutes = require('./routes/chatRoutes')
 
-app.use('/', userRoutes)
+app.use('/', userRoutes)  
 app.use('/', blogRoutes) 
 app.use('/', jobRoutes)
 app.use('/', eventRoutes)

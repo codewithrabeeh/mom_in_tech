@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateJob.module.css'
 
-function Job() {
+function Job(props) {
 
     const navigate = useNavigate()
     const isAuth = useSelector(state => state.auth.token)
@@ -15,10 +15,9 @@ function Job() {
     const emailRef = useRef()
     const userName = useSelector(state => state.auth.username)
 
-
     const createPostHandler = async () => {
         try {
-            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/job', {
+            const response = await fetch(`${props.host}/job`, {
                 method: 'POST',
                 body: JSON.stringify({
                     title: titleRef.current.value,

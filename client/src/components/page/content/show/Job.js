@@ -8,7 +8,7 @@ import classes from './Blog.module.css'
 import { authActions } from '../../../store/auth'
 import Skeleton from "@mui/material/Skeleton";
 
-function Job() {
+function Job(props) {
 
     const SkeletonOfBlog = (
 
@@ -40,7 +40,7 @@ function Job() {
 
     const fetchData = async () => {
 
-        const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/job', {
+        const response = await fetch(`${props.host}/job`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`

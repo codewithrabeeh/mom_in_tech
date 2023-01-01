@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateEvent.module.css'
 
-function Event() {
+function Event(props) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -20,7 +20,7 @@ function Event() {
 
     const createPostHandler = async () => {
         try {          
-            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/event', {
+            const response = await fetch(`${props.host}/event`, {
                 method: 'POST',
                 body: JSON.stringify({
                     title: titleRef.current.value,

@@ -2,9 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authActions } from './auth'
 import { useParams } from 'react-router-dom'
 
-export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
+const host = 'http://127.0.0.1:4005'
 
-  fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${data.blogID}/like`, {
+export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
+try {
+
+  fetch(`${host}/blog/${data.blogID}/like`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -13,11 +16,15 @@ export const likeBlog = createAsyncThunk("blog/likeBlog", (data) => {
     body: JSON.stringify({ userName: data.userName, like: data.like }),
   });
   return data
+
+} catch (e) {
+  alert("An Error Occured While Liking"); 
+}
 });
 
-export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
+export const getAllBlog = createAsyncThunk('blog/getAllBlog', async (host) => {
 
-  const response = await fetch("https://urchin-app-a4mge.ondigitalocean.app/blog", {
+  const response = await fetch(`${host}/blog`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -38,9 +45,9 @@ export const getAllBlog = createAsyncThunk('blog/getAllBlog', async () => {
 
 })
 
-export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
+export const getABlog = createAsyncThunk('blog/getABlog', async (blog) => {
 
-  const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
+  const response = await fetch(`${blog.host}/blog/${blog.blogId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +55,7 @@ export const getABlog = createAsyncThunk('blog/getABlog', async (blogId) => {
   });
 
   const data = await response.json();
-
+  console.log(data)
 
   if (data.status === "Unauthorized") {
     authActions.clearToken()

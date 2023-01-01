@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import classes from './Details.module.css'
 
 
-function JobDetails() {
+function JobDetails(props) {
     const params = useParams()
     const { jobId } = params
     const isAuth = useSelector(state => state.auth.token)
@@ -17,7 +17,7 @@ function JobDetails() {
     const navigate = useNavigate()
 
     const deleteHandler = async () => {
-        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/job/${jobId}`, {
+        const response = await fetch(`${props.host}/job/${jobId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${isAuth}`
@@ -29,7 +29,7 @@ function JobDetails() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/job/${jobId}`, {
+        const response = await fetch(`${props.host}/job/${jobId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`

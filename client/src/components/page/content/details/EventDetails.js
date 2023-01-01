@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import classes from './Details.module.css'
 
-function EventDetails() {
+function EventDetails(props) {
     const params = useParams()
     const { eventId } = params
     const isAuth = useSelector(state => state.auth.token)
@@ -17,7 +17,7 @@ function EventDetails() {
 
     const deleteHandler = async () => {
         try {
-            const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/event/${eventId}`, {
+            const response = await fetch(`${props.host}/event/${eventId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${isAuth}`
@@ -38,7 +38,7 @@ function EventDetails() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/event/${eventId}`, {
+        const response = await fetch(`${props.host}/event/${eventId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`

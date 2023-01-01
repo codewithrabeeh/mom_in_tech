@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import classes from './EditBlog.module.css'
 
-function EditBlog() {
+function EditBlog(props) {
 
     const params = useParams()
     const { blogId } = params
@@ -27,7 +27,7 @@ function EditBlog() {
 
     const editPostHandler = async () => {
         try {
-            const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
+            const response = await fetch(`${props.host}/blog/${blogId}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
                     title: titleRef.current.value,
@@ -54,7 +54,7 @@ function EditBlog() {
     }
 
     const fetchData = async () => {
-        const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
+        const response = await fetch(`${props.host}/blog/${blogId}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${isAuth}`

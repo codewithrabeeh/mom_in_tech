@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/auth'
 import { useNavigate, Navigate } from 'react-router-dom'
 
-function Login() {
+function Login(props) {
   const usernameRef = useRef()
   const passwordRef = useRef()
 
@@ -20,7 +20,7 @@ function Login() {
     event.preventDefault()
     
     try {
-      const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/login', {
+      const response = await fetch(`${props.host}/login`, {
         method: 'POST',
         body: JSON.stringify({
           username: usernameRef.current.value,

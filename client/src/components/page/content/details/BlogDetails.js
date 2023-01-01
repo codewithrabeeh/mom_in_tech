@@ -13,7 +13,8 @@ import Skeleton from "@mui/material/Skeleton";
 
 import { getABlog, likeBlog } from "../../../store/blog";
 
-function PostDetails() {
+function PostDetails(props) {
+  const host = 'http://127.0.0.1:4005'
   const dispatch = useDispatch()
   const params = useParams();
   const { blogId } = params;
@@ -24,10 +25,10 @@ function PostDetails() {
   const navigate = useNavigate();
 
   const handleLike = (blogID, like) => {
-    dispatch(likeBlog({ userName, blogID, like,single:true }));
+    dispatch(likeBlog({ userName, blogID, like, single:true}));
   };
   const deleteHandler = async () => {
-    const response = await fetch(`https://urchin-app-a4mge.ondigitalocean.app/blog/${blogId}`, {
+    const response = await fetch(`${props.host}/blog/${blogId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${isAuth}`,
@@ -40,7 +41,7 @@ function PostDetails() {
 
   useEffect(() => {
 
-      dispatch(getABlog(blogId));
+      dispatch(getABlog({blogId, host}));
 
   }, []);
   

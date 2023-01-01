@@ -14,6 +14,7 @@ import { getAllBlog, likeBlog } from "../../../store/blog";
 import Skeleton from "@mui/material/Skeleton";
 
 function Dashboard() {
+  const host = 'http://127.0.0.1:4005'
   const navigate = useNavigate();
   const userName = useSelector((state) => state.auth.username);
   const isAuth = useSelector((state) => state.auth.token);
@@ -43,11 +44,11 @@ function Dashboard() {
   );
 
   useEffect(() => {
-    dispatch(getAllBlog());
+    dispatch(getAllBlog(host));
   }, []);
 
   const handleLike = (blogID, like) => {
-    dispatch(likeBlog({ userName, blogID, like }));
+    dispatch(likeBlog({ userName, blogID, like, host })); 
   };
 
   return (

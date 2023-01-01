@@ -7,7 +7,7 @@ import { useNavigate, Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 
-function Register() {
+function Register(props) {
 
   const dispatch = useDispatch()
   const usernameRef = useRef()
@@ -20,7 +20,7 @@ function Register() {
   const onSubmitHandler = async (event) => {
     event.preventDefault()
     try {
-      const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/register', {
+      const response = await fetch(`${props.host}/register`, {
         method: 'POST',
         body: JSON.stringify({
           username: usernameRef.current.value,

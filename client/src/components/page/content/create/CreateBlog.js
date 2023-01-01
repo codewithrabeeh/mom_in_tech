@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Navigate } from 'react-router-dom'
 import classes from './CreateBlog.module.css'
 
-function CreatePost() {
+function CreatePost(props) {
     const navigate = useNavigate()
     const isAuth = useSelector(state => state.auth.token)
     const userName = useSelector(state => state.auth.username)    
@@ -19,7 +19,7 @@ function CreatePost() {
 
     const createPostHandler = async () => {
         try {                        
-            const response = await fetch('https://urchin-app-a4mge.ondigitalocean.app/blog', {
+            const response = await fetch(`${props.host}/blog`, {
                 method: 'POST',
                 body: JSON.stringify({
                     title: titleRef.current.value,
